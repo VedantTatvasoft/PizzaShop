@@ -1,0 +1,30 @@
+
+@{
+    ViewData["Title"] = "";
+    Layout = "_LoginLayout";
+}
+@model LoginUser
+<form class="form" asp-controller="Authentication" asp-action="Login" method="POST"
+    class="d-flex flex-column align-items-center">
+
+    <div class="input-holder">
+        <input type="email" asp-for="Email" class="form-control my-4 " placeholder="Email*">
+        <span class="input-icon"> <img src="images/icons/customer.svg" alt=""></span>
+    </div>
+    <div class="input-holder">
+        <input type="password" asp-for="Upassword" class="form-control my-4" id="password" placeholder="Password*">
+        <span class="input-icon"><i class="bi bi-eye-slash" id="togglePassword"></i></span>
+    </div>
+    <div class="form-group d-flex  justify-content-between re-fo-btn">
+        <div>
+            <input type="checkbox" asp-for="RememberMe" id=""> <span class="white-text">Remember Me</span>
+        </div>
+        <!-- <div> -->
+        <!-- <button type="button" class="forgot-password btn  p-0 bg-white">Forgot
+                                Password?</button> -->
+        <a href="/forgot-password.html" class="forgot-password  p-0">Forgot Password</a>
+        <!-- </div> -->
+    </div>
+    <button type="submit" id="" class="btn btn-primary form-control mt-4 ">Login</button>
+    <span class="text-danger" >@ViewBag.ErrorMsg</span>
+</form>

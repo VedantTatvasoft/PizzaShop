@@ -1,0 +1,403 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PizzaShop</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
+    <link rel="stylesheet" href=" https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" asp-append-version="true" />
+
+</head>
+<body class="bg-light">
+    <div class="d-flex">
+        @* <!-- main sidebar  --> sticky-top *@
+        <aside class="bg-white col-md-auto sidebar1 sticky-top d-none d-lg-block vh-100">
+            <div class=" pt-2 d-flex align-items-center ps-3 gap-2 ">
+                <img src="/images/logos/pizzashop_logo.png" class="sidebar-header" height="50px" alt="company-logo">
+                <h4 id="pizzashop-header">PIZZASHOP</h4>
+            </div>
+            <ul class="d-flex flex-column p-3 sidebar-elements">
+                <a href="" class="mb-3 sidebar-components d-flex gap-2 align-items-center ">
+                    <svg height="20px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+                        xmlns:serif="http://www.serif.com/"
+                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+                        <g transform="matrix(1,0,0,1,0.5,0)">
+                            <path
+                                d="M15.833,3L4.167,3C3.25,3 2.5,3.75 2.5,4.667L2.5,16.333C2.5,17.25 3.25,18 4.167,18L15.833,18C16.75,18 17.5,17.25 17.5,16.333L17.5,4.667C17.5,3.75 16.75,3 15.833,3ZM4.167,16.333L4.167,4.667L9.167,4.667L9.167,16.333L4.167,16.333ZM15.833,16.333L10.833,16.333L10.833,10.5L15.833,10.5L15.833,16.333ZM15.833,8.833L10.833,8.833L10.833,4.667L15.833,4.667L15.833,8.833Z"
+                                style="fill:#646464;fill-rule:nonzero;" />
+                        </g>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a asp-area="" asp-controller="Authentication" asp-action="Login" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                    <svg height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M13 20V18C13 15.2386 10.7614 13 8 13C5.23858 13 3 15.2386 3 18V20H13ZM13 20H21V19C21 16.0545 18.7614 14 16 14C14.5867 14 13.3103 14.6255 12.4009 15.6311M11 7C11 8.65685 9.65685 10 8 10C6.34315 10 5 8.65685 5 7C5 5.34315 6.34315 4 8 4C9.65685 4 11 5.34315 11 7ZM18 9C18 10.1046 17.1046 11 16 11C14.8954 11 14 10.1046 14 9C14 7.89543 14.8954 7 16 7C17.1046 7 18 7.89543 18 9Z"
+                            stroke="#646464" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>Users</span>
+                </a>
+                <a href="role-page.html" class="mb-3 sidebar-components d-flex gap-2 align-items-center roles">
+                    <svg height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+                        <g id="SVGRepo_iconCarrier">
+                            <circle cx="12" cy="6" r="4" stroke="#646464" stroke-width="1.5" />
+                            <path
+                                d="M15.5 13.5351C14.4704 13.1948 13.275 13 12 13C8.13401 13 5 14.7909 5 17C5 17.3453 5 17.6804 5.02673 18M13 20.9867C12.6836 20.9955 12.3506 21 12 21C10.2776 21 8.97906 20.8916 8 20.6952"
+                                stroke="#646464" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M19.9502 17.0498L16.0502 20.9497" stroke="#646464" stroke-width="1.5"
+                                stroke-linecap="round" />
+                            <circle cx="18" cy="19" r="3" stroke="#646464" stroke-width="1.5" />
+                        </g>
+                    </svg>
+                    <span>Role and Permission</span>
+                </a>
+                <a href="menu-page.html" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                    <svg height="20px" viewBox="0 -3 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+
+                        <title>dinner</title>
+                        <desc>Created with Sketch Beta.</desc>
+                        <defs>
+
+                        </defs>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                            sketch:type="MSPage">
+                            <g id="Icon-Set-Filled" sketch:type="MSLayerGroup"
+                                transform="translate(-466.000000, -416.000000)" fill="#646464">
+                                <path
+                                    d="M483,420 L483,418 L485,418 C485.553,418 486,417.553 486,417 C486,416.448 485.553,416 485,416 L479,416 C478.447,416 478,416.448 478,417 C478,417.553 478.447,418 479,418 L481,418 L481,420 C472.632,420.519 466,427.501 466,436 L466,437 C466,437.553 466.447,438 467,438 L497,438 C497.553,438 498,437.553 498,437 L498,436 C498,427.501 491.368,420.519 483,420 L483,420 Z M497,440 L467,440 C466.447,440 466,440.448 466,441 C466,441.553 466.447,442 467,442 L497,442 C497.553,442 498,441.553 498,441 C498,440.448 497.553,440 497,440 L497,440 Z"
+                                    id="dinner" sketch:type="MSShapeGroup">
+
+                                </path>
+                            </g>
+                        </g>
+                    </svg>
+                    <span>Menu</span>
+                </a>
+                <a href="" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                    <svg fill="#646464" height="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 490.9 490.9" xml:space="preserve">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <g id="SVGRepo_iconCarrier">
+                            <g>
+                                <g>
+                                    <path
+                                        d="M81.7,273.2c-6.6,0-12,5.4-12,12s5.4,12,12,12h46.1c6.6,0,12-5.4,12-12s-5.4-12-12-12H81.7z" />
+                                    <path
+                                        d="M283.8,297.2h46.1c6.6,0,12-5.4,12-12s-5.4-12-12-12h-46.1c-6.6,0-12,5.4-12,12S277.2,297.2,283.8,297.2z" />
+                                    <path
+                                        d="M458.4,78.2h-349c-17.9,0-32.5,14.6-32.5,32.5v47.1H24c-13.2,0-24,10.8-24,24v206.9c0,13.2,10.8,24,24,24h366 c13.2,0,24-10.8,24-24v-55.6h44.4c17.9,0,32.5-14.6,32.5-32.5v-190C490.8,92.7,476.3,78.2,458.4,78.2z M322.8,181.8 c2.7,36,31.3,64.8,67.2,67.9v71.8c-36,2.7-64.8,31.3-67.9,67.2H91.2c-2.7-36-31.3-64.8-67.2-67.9V249c36-2.7,64.8-31.3,67.9-67.2 L322.8,181.8L322.8,181.8z M346.8,181.8h43.1v43.8C367.3,222.6,349.4,204.5,346.8,181.8z M67.7,181.8c-2.9,22.6-21,40.6-43.8,43.1 v-43.1H67.7z M24,344.9c22.6,2.9,40.6,21,43.1,43.8H24V344.9z M346.2,388.6c2.9-22.6,21-40.6,43.8-43.1v43.1H346.2z M466.8,300.6 c0,4.7-3.8,8.5-8.5,8.5h-44.4V181.8c0-13.2-10.8-24-24-24H100.8v-47.1c0-4.7,3.8-8.5,8.5-8.5h349c4.7,0,8.5,3.8,8.5,8.5V300.6z" />
+                                    <path
+                                        d="M196.7,297.1h20.5c5.8,0,10.5,4.7,10.5,10.5s-4.7,10.5-10.5,10.5h-36.8c-6.6,0-12,5.4-12,12s5.4,12,12,12H195v9.7 c0,6.6,5.4,12,12,12s12-5.4,12-12v-9.7c18.2-0.9,32.7-16,32.7-34.4c0-19-15.5-34.5-34.5-34.5h-20.5c-5.8,0-10.5-4.7-10.5-10.5 s4.7-10.5,10.5-10.5h36.1c6.6,0,12-5.4,12-12s-5.4-12-12-12h-13.9v-9.4c0-6.6-5.4-12-12-12s-12,5.4-12,12v9.5 c-18.2,0.9-32.7,16-32.7,34.4C162.3,281.6,177.7,297.1,196.7,297.1z" />
+                                </g>
+                            </g>
+                        </g>
+
+                    </svg>
+                    <span>Taxes and Fees</span>
+                </a>
+                <a href="" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                    <svg height="20px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+                        <rect x="1" y="1" width="14" height="14" fill="#646464" />
+                    </svg>
+                    <span>Tables and Sections</span>
+                </a>
+                <a href="" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                    <svg fill="#646464" height="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <g id="SVGRepo_iconCarrier">
+                            <g>
+                                <g>
+                                    <path
+                                        d="M431.342,25.962h-95.078v-9.266c0-9.22-7.475-16.696-16.696-16.696H192.434c-9.22,0-16.696,7.475-16.696,16.696v9.266 H80.659c-9.22,0-16.696,7.475-16.696,16.696v452.647c0,9.22,7.475,16.696,16.696,16.696H431.34c9.22,0,16.696-7.475,16.696-16.696 V42.657C448.037,33.437,440.562,25.962,431.342,25.962z M209.129,33.391h93.743c0,6.696,0,11.813,0,18.533h-93.743 C209.129,45.22,209.129,40.112,209.129,33.391z M414.646,478.609L414.646,478.609H97.355V59.353h78.383v9.267 c0,9.22,7.475,16.696,16.696,16.696h127.134c9.22,0,16.696-7.475,16.696-16.696v-9.267h78.383V478.609z" />
+                                </g>
+                            </g>
+                            <g>
+                                <g>
+                                    <path
+                                        d="M374.46,98.208H137.54c-9.22,0-16.696,7.475-16.696,16.696v323.519c0,9.22,7.475,16.696,16.696,16.696H374.46 c9.22,0,16.696-7.475,16.696-16.696V114.904C391.155,105.683,383.68,98.208,374.46,98.208z M357.764,421.728H154.236V131.6 h203.528V421.728z" />
+                                </g>
+                            </g>
+                            <g>
+                                <g>
+                                    <path
+                                        d="M309.639,234.808c-6.52-6.52-17.092-6.52-23.611,0l-48.296,48.295l-11.758-11.758c-6.519-6.52-17.091-6.52-23.611,0 c-6.52,6.52-6.52,17.091,0,23.611l23.564,23.564c6.519,6.52,17.091,6.521,23.611,0l60.101-60.101 C316.159,251.898,316.159,241.328,309.639,234.808z" />
+                                </g>
+                            </g>
+                        </g>
+
+                    </svg>
+                    <span>Orders</span>
+                </a>
+                <a href="" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                    <svg fill="#646464" height="20px" viewBox="0 0 1024 1024" class="icon" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <g id="SVGRepo_iconCarrier">
+
+                            <path d="M841.2 841.1H182.9V182.9h292.5v-73.2H109.7v804.6h804.6V621.7h-73.1z"
+                                fill="#646464" />
+
+                            <path
+                                d="M402.3 585.1h73.1c0-100.8 82-182.9 182.9-182.9s182.9 82 182.9 182.9h73.1c0-102.2-60.2-190.6-147-231.6 23.2-25.9 37.3-60.1 37.3-97.5 0-80.8-65.5-146.3-146.3-146.3-80.8 0-146.3 65.5-146.3 146.3 0 37.5 14.1 71.7 37.3 97.5-86.8 41.1-147 129.4-147 231.6z m256-402.2c40.3 0 73.1 32.8 73.1 73.1s-32.8 73.1-73.1 73.1-73.1-32.8-73.1-73.1 32.8-73.1 73.1-73.1zM219.4 256h219.4v73.1H219.4zM219.4 658.3h585.1v73.1H219.4zM219.4 402.3h146.3v73.1H219.4z"
+                                fill="#646464" />
+
+                        </g>
+
+                    </svg>
+                    <span>Customers</span>
+                </a>
+
+            </ul>
+        </aside>
+        <!-- finish main sidebar  -->
+
+        <!-- off canvas sidebar -->
+
+        <div class="offcanvas offcanvas-start p-0 m-0" style="width: 220px;" tabindex="-1" id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header p-0 m-0">
+                <div class=" pt-2 d-flex align-items-center ps-3 gap-2 ">
+                    <img src="/images/logos/pizzashop_logo.png" class="sidebar-header" height="50px" alt="company-logo">
+                    <h4 id="pizzashop-header">PIZZASHOP</h4>
+                </div>
+            </div>
+            <div class="offcanvas-body p-0 m-0">
+                <ul class="d-flex flex-column p-3 sidebar-elements p-0 m-0">
+                    <a href="" class="mb-3 sidebar-components d-flex gap-2 align-items-center ">
+                        <!-- <img  height="40px" alt=""> -->
+                        <svg height="20px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+                            xmlns:serif="http://www.serif.com/"
+                            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+                            <g transform="matrix(1,0,0,1,0.5,0)">
+                                <path
+                                    d="M15.833,3L4.167,3C3.25,3 2.5,3.75 2.5,4.667L2.5,16.333C2.5,17.25 3.25,18 4.167,18L15.833,18C16.75,18 17.5,17.25 17.5,16.333L17.5,4.667C17.5,3.75 16.75,3 15.833,3ZM4.167,16.333L4.167,4.667L9.167,4.667L9.167,16.333L4.167,16.333ZM15.833,16.333L10.833,16.333L10.833,10.5L15.833,10.5L15.833,16.333ZM15.833,8.833L10.833,8.833L10.833,4.667L15.833,4.667L15.833,8.833Z"
+                                    style="fill:#646464;fill-rule:nonzero;" />
+                            </g>
+                        </svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="/user/index" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                        <svg height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13 20V18C13 15.2386 10.7614 13 8 13C5.23858 13 3 15.2386 3 18V20H13ZM13 20H21V19C21 16.0545 18.7614 14 16 14C14.5867 14 13.3103 14.6255 12.4009 15.6311M11 7C11 8.65685 9.65685 10 8 10C6.34315 10 5 8.65685 5 7C5 5.34315 6.34315 4 8 4C9.65685 4 11 5.34315 11 7ZM18 9C18 10.1046 17.1046 11 16 11C14.8954 11 14 10.1046 14 9C14 7.89543 14.8954 7 16 7C17.1046 7 18 7.89543 18 9Z"
+                                stroke="#646464" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span>Users</span>
+                    </a>
+                    <a href="role-page.html" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                        <svg height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            class="icon">
+                            <g id="SVGRepo_iconCarrier">
+                                <circle cx="12" cy="6" r="4" stroke="#646464" stroke-width="1.5" />
+                                <path
+                                    d="M15.5 13.5351C14.4704 13.1948 13.275 13 12 13C8.13401 13 5 14.7909 5 17C5 17.3453 5 17.6804 5.02673 18M13 20.9867C12.6836 20.9955 12.3506 21 12 21C10.2776 21 8.97906 20.8916 8 20.6952"
+                                    stroke="#646464" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M19.9502 17.0498L16.0502 20.9497" stroke="#646464" stroke-width="1.5"
+                                    stroke-linecap="round" />
+                                <circle cx="18" cy="19" r="3" stroke="#646464" stroke-width="1.5" />
+                            </g>
+                        </svg>
+                        <span>Role and Permission</span>
+                    </a>
+                    <a href="menu-page.html" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                        <svg height="20px" viewBox="0 -3 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+
+                            <title>dinner</title>
+                            <desc>Created with Sketch Beta.</desc>
+                            <defs>
+
+                            </defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                                sketch:type="MSPage">
+                                <g id="Icon-Set-Filled" sketch:type="MSLayerGroup"
+                                    transform="translate(-466.000000, -416.000000)" fill="#646464">
+                                    <path
+                                        d="M483,420 L483,418 L485,418 C485.553,418 486,417.553 486,417 C486,416.448 485.553,416 485,416 L479,416 C478.447,416 478,416.448 478,417 C478,417.553 478.447,418 479,418 L481,418 L481,420 C472.632,420.519 466,427.501 466,436 L466,437 C466,437.553 466.447,438 467,438 L497,438 C497.553,438 498,437.553 498,437 L498,436 C498,427.501 491.368,420.519 483,420 L483,420 Z M497,440 L467,440 C466.447,440 466,440.448 466,441 C466,441.553 466.447,442 467,442 L497,442 C497.553,442 498,441.553 498,441 C498,440.448 497.553,440 497,440 L497,440 Z"
+                                        id="dinner" sketch:type="MSShapeGroup">
+
+                                    </path>
+                                </g>
+                            </g>
+                        </svg>
+                        <span>Menu</span>
+                    </a>
+                    <a href="" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                        <svg fill="#646464" height="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 490.9 490.9" xml:space="preserve">
+
+                            <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                            <g id="SVGRepo_iconCarrier">
+                                <g>
+                                    <g>
+                                        <path
+                                            d="M81.7,273.2c-6.6,0-12,5.4-12,12s5.4,12,12,12h46.1c6.6,0,12-5.4,12-12s-5.4-12-12-12H81.7z" />
+                                        <path
+                                            d="M283.8,297.2h46.1c6.6,0,12-5.4,12-12s-5.4-12-12-12h-46.1c-6.6,0-12,5.4-12,12S277.2,297.2,283.8,297.2z" />
+                                        <path
+                                            d="M458.4,78.2h-349c-17.9,0-32.5,14.6-32.5,32.5v47.1H24c-13.2,0-24,10.8-24,24v206.9c0,13.2,10.8,24,24,24h366 c13.2,0,24-10.8,24-24v-55.6h44.4c17.9,0,32.5-14.6,32.5-32.5v-190C490.8,92.7,476.3,78.2,458.4,78.2z M322.8,181.8 c2.7,36,31.3,64.8,67.2,67.9v71.8c-36,2.7-64.8,31.3-67.9,67.2H91.2c-2.7-36-31.3-64.8-67.2-67.9V249c36-2.7,64.8-31.3,67.9-67.2 L322.8,181.8L322.8,181.8z M346.8,181.8h43.1v43.8C367.3,222.6,349.4,204.5,346.8,181.8z M67.7,181.8c-2.9,22.6-21,40.6-43.8,43.1 v-43.1H67.7z M24,344.9c22.6,2.9,40.6,21,43.1,43.8H24V344.9z M346.2,388.6c2.9-22.6,21-40.6,43.8-43.1v43.1H346.2z M466.8,300.6 c0,4.7-3.8,8.5-8.5,8.5h-44.4V181.8c0-13.2-10.8-24-24-24H100.8v-47.1c0-4.7,3.8-8.5,8.5-8.5h349c4.7,0,8.5,3.8,8.5,8.5V300.6z" />
+                                        <path
+                                            d="M196.7,297.1h20.5c5.8,0,10.5,4.7,10.5,10.5s-4.7,10.5-10.5,10.5h-36.8c-6.6,0-12,5.4-12,12s5.4,12,12,12H195v9.7 c0,6.6,5.4,12,12,12s12-5.4,12-12v-9.7c18.2-0.9,32.7-16,32.7-34.4c0-19-15.5-34.5-34.5-34.5h-20.5c-5.8,0-10.5-4.7-10.5-10.5 s4.7-10.5,10.5-10.5h36.1c6.6,0,12-5.4,12-12s-5.4-12-12-12h-13.9v-9.4c0-6.6-5.4-12-12-12s-12,5.4-12,12v9.5 c-18.2,0.9-32.7,16-32.7,34.4C162.3,281.6,177.7,297.1,196.7,297.1z" />
+                                    </g>
+                                </g>
+                            </g>
+
+                        </svg>
+                        <span>Taxes and Fees</span>
+                    </a>
+                    <a href="" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                        <svg height="20px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            class="icon">
+                            <rect x="1" y="1" width="14" height="14" fill="#646464" />
+                        </svg>
+                        <span>Tables and Sections</span>
+                    </a>
+                    <a href="" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                        <svg fill="#646464" height="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+
+                            <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                            <g id="SVGRepo_iconCarrier">
+                                <g>
+                                    <g>
+                                        <path
+                                            d="M431.342,25.962h-95.078v-9.266c0-9.22-7.475-16.696-16.696-16.696H192.434c-9.22,0-16.696,7.475-16.696,16.696v9.266 H80.659c-9.22,0-16.696,7.475-16.696,16.696v452.647c0,9.22,7.475,16.696,16.696,16.696H431.34c9.22,0,16.696-7.475,16.696-16.696 V42.657C448.037,33.437,440.562,25.962,431.342,25.962z M209.129,33.391h93.743c0,6.696,0,11.813,0,18.533h-93.743 C209.129,45.22,209.129,40.112,209.129,33.391z M414.646,478.609L414.646,478.609H97.355V59.353h78.383v9.267 c0,9.22,7.475,16.696,16.696,16.696h127.134c9.22,0,16.696-7.475,16.696-16.696v-9.267h78.383V478.609z" />
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path
+                                            d="M374.46,98.208H137.54c-9.22,0-16.696,7.475-16.696,16.696v323.519c0,9.22,7.475,16.696,16.696,16.696H374.46 c9.22,0,16.696-7.475,16.696-16.696V114.904C391.155,105.683,383.68,98.208,374.46,98.208z M357.764,421.728H154.236V131.6 h203.528V421.728z" />
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path
+                                            d="M309.639,234.808c-6.52-6.52-17.092-6.52-23.611,0l-48.296,48.295l-11.758-11.758c-6.519-6.52-17.091-6.52-23.611,0 c-6.52,6.52-6.52,17.091,0,23.611l23.564,23.564c6.519,6.52,17.091,6.521,23.611,0l60.101-60.101 C316.159,251.898,316.159,241.328,309.639,234.808z" />
+                                    </g>
+                                </g>
+                            </g>
+
+                        </svg>
+                        <span>Orders</span>
+                    </a>
+                    <a href="" class="mb-3 sidebar-components d-flex gap-2 align-items-center">
+                        <svg fill="#646464" height="20px" viewBox="0 0 1024 1024" class="icon" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg">
+
+                            <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                            <g id="SVGRepo_iconCarrier">
+
+                                <path d="M841.2 841.1H182.9V182.9h292.5v-73.2H109.7v804.6h804.6V621.7h-73.1z"
+                                    fill="#646464" />
+
+                                <path
+                                    d="M402.3 585.1h73.1c0-100.8 82-182.9 182.9-182.9s182.9 82 182.9 182.9h73.1c0-102.2-60.2-190.6-147-231.6 23.2-25.9 37.3-60.1 37.3-97.5 0-80.8-65.5-146.3-146.3-146.3-80.8 0-146.3 65.5-146.3 146.3 0 37.5 14.1 71.7 37.3 97.5-86.8 41.1-147 129.4-147 231.6z m256-402.2c40.3 0 73.1 32.8 73.1 73.1s-32.8 73.1-73.1 73.1-73.1-32.8-73.1-73.1 32.8-73.1 73.1-73.1zM219.4 256h219.4v73.1H219.4zM219.4 658.3h585.1v73.1H219.4zM219.4 402.3h146.3v73.1H219.4z"
+                                    fill="#646464" />
+
+                            </g>
+
+                        </svg>
+                        <span>Customers</span>
+                    </a>
+
+                </ul>
+            </div>
+        </div>
+
+        <!--finish off canvas sidebar -->
+
+        <div class="vw-100 ">
+            <!-- main navbar  -->
+            <nav class="nav-container sticky-top bg-blue  d-flex justify-content-between align-items-center">
+                <div id="sidebarToggle" class="d-flex justify-content-start">
+                    <div class=" d-none d-lg-block">
+                        <button class="btn" style="box-shadow: none;">
+                            <svg height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M4 6H20M4 12H20M4 18H20" stroke="#ffffff" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="d-lg-none d-block">
+                        <button class="btn" style="box-shadow: none;" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                            <svg height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M4 6H20M4 12H20M4 18H20" stroke="#ffffff" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="">
+                    <a href=""><img class="nav-user-logo me-3" height="40px" src="images/Default_pfp.svg.png"
+                            alt=""></a>
+                </div>
+            </nav>
+            <!-- finish main navbar  -->
+            <main class="my-3 mx-3 mx-sm-5">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+</body>
+@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+@* <script src="~/js/site.js" asp-append-version="true"></script> *@
+@await RenderSectionAsync("Scripts", required: false)
+
+<script>
+    const sidebar = document.querySelector('aside');
+    const toggleButton = document.getElementById('sidebarToggle');
+
+    toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('show');
+    });
+</script>
+
+</html>

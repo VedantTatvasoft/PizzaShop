@@ -1,0 +1,328 @@
+/* reset css */
+
+/* finish reset css */
+
+
+/* sidebar  */
+
+/* .form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label,
+.form-floating>.form-select~label {
+  opacity: .65;
+  transform: scale(.90) translateY(-.9rem) translateX(.29rem);
+} *//* CSS Reset for Body */
+
+  
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,700,900");
+
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins", sans-serif !important;
+  font-size: 16px !important;
+  /* background-color: red; */
+}
+
+
+
+
+/* form-floating */
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label {
+    opacity: 1;
+    transform: translateY(-1.5rem) scale(0.85);
+    background-color: white;
+    padding: 0 7px;
+    top: 12px;
+    left: 8px;
+    height: fit-content;
+}
+
+.form-control {
+    border-color: #ADADAD;
+    box-shadow: none !important;
+}
+
+.form-control:focus-within {
+    /* border-color: #ADADAD; */
+    border-color: rgb(0, 102, 167);
+}
+
+/* finish form-floating */
+
+.category-element-hover {
+    position: absolute;
+    right: 5px;
+}
+
+
+
+aside {
+    /* transition: transform 0.8s; */
+}
+
+.categories-sidebar1.show-cat {
+  display: none !important;
+}
+
+.sidebar1{
+    overflow-y: auto;
+}
+
+.sidebar1.show  {
+    /* width: 0; */
+    display: none !important;
+    /* padding: 0; */
+    /* overflow: hidden; */
+    /* position: absolute; */
+    /* left: -250px; */
+    /* Move sidebar off-screen */
+}
+
+
+/* aside.show a svg{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+/* sidebar  */
+.sidebar-components,
+a {
+    text-decoration: none;
+    color: black;
+    padding: 6px;
+
+}
+
+
+.category-sidebar-elements{
+    position: relative;
+}
+
+.sidebar-components.active {
+    background-color: rgb(233, 234, 235);
+}
+
+
+#pizzashop-header,
+#category-header,
+#header {
+    color: #1b689b;
+}
+
+
+.nav-container {
+    height: 60px;
+}
+
+.text-blue {
+    color: rgb(0, 102, 167);
+}
+
+.bg-blue {
+    background-color: rgb(0, 102, 167);
+}
+
+.input-search {
+    height: 45px;
+}
+
+.nav-user-logo {
+    height: 40px;
+    /* display: flex; */
+    /* justify-content: end; */
+}
+
+.search-div {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    right: 1rem;
+    top: 8px;
+}
+
+
+/* table  */
+.table {
+    /* font-size: 20px; */
+}
+
+/* table  */
+
+/* add new user  */
+.file-input-none {
+    display: none;
+}
+
+.file-box {
+    /* border: 2px solid red; */
+    height: 90px;
+}
+
+.blue-outline {
+    border-color: rgb(0, 102, 167);
+    ;
+    color: rgb(0, 102, 167);
+    background-color: white;
+}
+
+.sidebar-elements a:hover,
+.hover-color {
+    background-color: rgb(233, 234, 235)
+}
+
+.sidebar-elements a:hover .category-element-hover {
+    display: block !important;
+}
+
+
+.sidebar-elements a:hover {
+    color: rgb(0, 102, 167);
+}
+
+
+.sidebar-elements a:hover svg path  , .sidebar-elements a:hover  svg rect  {
+    fill:  rgb(0, 102, 167) !important;
+}
+.roles:hover circle  {
+  stroke:  rgb(0, 102, 167) !important;
+}
+
+.status {
+    background-color: #BDE19C;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+
+/* permission */
+.form-switch .form-check-input {
+    /* width: 200px; */
+    width: 50px;
+    height: 22px;
+}
+
+.form-check-input:checked {
+    background-color: rgb(0, 102, 167);
+    ;
+    border-color: rgb(0, 102, 167);
+    ;
+}
+
+/* @media (max-width: 992px) {
+
+    aside a span,
+    #pizzashop-header {
+        display: none;
+    }
+} */
+
+
+div.form-check {
+    /* padding-inline-start: 18%; */
+}
+
+.bg-cream {
+    background-color: #FDF5E6;
+}
+
+
+
+.categories-sidebar {
+    overflow-y: scroll;
+    height: 420px;
+}
+
+@media(max-width:992px) {
+    .category-table-section {
+        flex-wrap: wrap;
+    }
+
+    .category-sidebar-elements{
+        border:1px solid grey;
+        border-radius: 5px;
+        width: 190px;
+     }
+    .categories-sidebar {
+        align-items: center;
+        justify-content: center;
+        text-wrap: nowrap;
+        flex-direction: row !important;
+        height: auto;
+        flex-wrap: wrap;
+    }
+
+    /* .categories-sidebar1{
+        width: 500px;
+    } */
+    /* .categories-sidebar{
+        width: 100%;
+    } */
+
+   
+}
+
+
+@media (max-width: 576px) {
+    .input-search {
+        width: 100px;
+    }
+}
+
+/* table data center  */
+
+table td:not(:first-child),
+table th:not(:first-child) {
+    text-align: center;
+    text-wrap: nowrap;
+}
+
+table.my-table td:nth-child(5) {
+    padding-left: 5%;
+}
+
+
+table.permission-table td:not(:first-child) {
+    padding-left: 7%;
+}
+
+table.permission-table td:nth-child(3) {
+    padding-left: 10%;
+}
+
+
+table.permission-table td:nth-child(4) {
+    padding-left: 9%;
+}
+
+
+
+.b-none {
+    border-bottom: 3px solid rgb(0, 102, 167) !important;
+    color: rgb(0, 102, 167);
+}
+
+.tab-nav {
+    border-bottom: 1px solid lightgray;
+}
+
+.tab-nav li button {
+    border: none;
+    background-color: white;
+    /* padding: 1rem; */
+}
+
+
+/* .item-modifier-btn:hover {
+    color: rgb(0, 102, 167);
+} */
+
+.b-none.item-modifier-btn:hover img {
+    content: url('/img/menu-blue.svg')
+}
