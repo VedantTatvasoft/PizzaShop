@@ -18,6 +18,13 @@ public class AuthenticationController : Controller
 
     public IActionResult Login()
     {
+        if(Request.Cookies.TryGetValue("Email", out String ? email)){
+            ViewBag.RememberedEmail = email;
+        }
+         if(Request.Cookies.TryGetValue("Password", out String ? password)){
+            ViewBag. RememberedPassword = password;
+        }
+       
         return View();
     }
 
@@ -49,7 +56,11 @@ public class AuthenticationController : Controller
         }
 
         if(user.RememberMe==true){
-          
+            var options = new CookieOptions{
+                Expires = DateTime.UtcNow.AddDays(7)
+            };
+            Response.Cookies.Append("Email",newUser.Email);
+            Response.Cookies.Append("Password",newUser.Upassword);
         }
         return RedirectToAction("UserList", "User");
     }
