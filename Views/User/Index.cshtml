@@ -1,0 +1,25 @@
+@{
+    Layout = "_Layout";
+}
+
+@model IEnumerable<Pizzashop_dotnet.Models.User>
+
+<body>
+    <div class="d-flex align-items-center justify-content-between">
+        <h1 class="text-blue">Users</h1>
+        <form class="d-flex align-items-center">
+            <div class="search-div h-100">
+                <input class="input-search px-2 form-control d-sm-block d-none " type="search" placeholder="Search">
+                <input class="input-search px-2 form-control d-sm-none" style="width: 100px;" type="search"
+                    placeholder="Search">
+                <span class="search-icon">
+                    <i class="bi bi-search"></i>
+                </span>
+            </div>
+            <a href="add-new-user.html" class="btn bg-blue text-white d-flex align-items-center ms-2 px-2 py-1">
+                <i class="bi bi-plus h4 p-0 m-0 mb-1 "></i>
+                <span class="d-none d-md-block">AddUser</span></a>
+        </form>
+    </div>
+ 
+</body>

@@ -18,8 +18,14 @@ public partial class LoginUser
     [StringLength(150)]
     public string Upassword { get; set; } = null!;
 
+    [Column("upassword")]
+    [StringLength(150)]
+    public string ConfirmUpassword { get; set; } = null!;
+
     [Column("rememberMe")]
     public bool RememberMe { get; set; }
+
+    public int ID {get;set;}
 
 
 }

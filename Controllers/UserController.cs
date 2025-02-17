@@ -16,7 +16,7 @@ public class UserController : Controller
     }
 
 
-    public IActionResult UserList()
+    public IActionResult Index()
     {
         return View();
     }

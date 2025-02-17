@@ -29,10 +29,10 @@ public class AuthenticationController : Controller
     public IActionResult Login()
     {
 
-        if (Request.Cookies["Email"] != null)
-        {
-            return RedirectToAction("UserList", "User");
-        }
+        // if (Request.Cookies["Email"] != null)
+        // {
+        //     return RedirectToAction("UserList", "User");
+        // }
         if (Request.Cookies.TryGetValue("Email", out String? email))
         {
             ViewBag.RememberedEmail = email;
@@ -52,11 +52,11 @@ public class AuthenticationController : Controller
     {
 
 
-        if (!ModelState.IsValid)
-        {
-            ViewBag.ErrorMsg = "data type is not valid";
-            return View(user);
-        }
+        // if (!ModelState.IsValid)
+        // {
+        //     ViewBag.ErrorMsg = "data type is not valid";
+        //     return View(user);
+        // }
         if (user == null || string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Upassword))
         {
             ViewBag.ErrorMsg = "Empty email and password";
@@ -96,7 +96,7 @@ public class AuthenticationController : Controller
             Response.Cookies.Append("Email", user.Email, options);
             Response.Cookies.Append("Password", user.Upassword, options);
         }
-        return RedirectToAction("UserList", "User");
+        return RedirectToAction("Index", "User");
     }
 
 
@@ -135,7 +135,7 @@ public class AuthenticationController : Controller
         Response.Cookies.Append("ResetEmail", Email, options);
 
         // Generate reset link (without token)
-        string resetLink = Url.Action("ResetPassword", "Authentication", null, Request.Scheme ) ?? "";
+        string resetLink = Url.Action("ResetPassword", "Authentication", new { ID = user.Userid }, Request.Scheme) ?? "";
 
         // Send email with reset link
         await SendEmail(user.Email, resetLink);
@@ -151,10 +151,124 @@ public class AuthenticationController : Controller
         message.To.Add(new MailboxAddress("", email));
         message.Subject = "Password Reset Request";
 
-        message.Body = new TextPart("html")
-        {
-            Text = $"<p>Click the link below to reset your password:</p><a href='{resetLink}'>Reset Password</a>"
-        };
+        // message.Body = new TextPart("html")
+        // {
+
+        //     Text = $"<p>Click the link below to reset your password:</p><a href='{resetLink}'>Reset Password</a>"
+        // };
+
+        var bodyBuilder = new BodyBuilder();
+
+        var imagePath = "C:/Project/Pizzashop-dotnet/wwwroot/images/logos/pizzashop_logo.png";
+        var image = bodyBuilder.LinkedResources.Add(imagePath);
+
+        image.ContentId = "pizzashop_logo";
+
+        bodyBuilder.HtmlBody = $@"
+        <!DOCTYPE html>
+                    <html lang='en'>
+                    <head>
+                        <meta charset='UTF-8'>
+                        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                        <title>Password Reset</title>
+                        <style>
+                            body {{
+                                font-family: Arial, sans-serif;
+                                background-color: #f8f9fa;
+                                margin: 0;
+                                padding: 0;
+                            }}
+                            .container {{
+                                width: 70%;
+                                background: #ffffff;
+                                margin: 20px 0;
+                                padding: 20px;
+                                border-radius: 8px;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                            }}
+                            .header {{
+                                background-color: #1f73ae;
+                                color: white;
+                                text-align: center;
+                                padding: 20px;
+                                border-top-left-radius: 8px;
+                                border-top-right-radius: 8px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }}
+                            .header img {{
+                                height: 80px;
+                                width: 100px;
+                                margin-right: 10px;
+                            }}
+                            .header h1 {{
+                                display: inline;
+                                font-size: 24px;
+                                vertical-align: middle;
+                            }}
+                            .content {{
+                                padding: 20px;
+                            }}
+                            .content p {{
+                                font-size: 16px;
+                                color: #333;
+                                line-height: 1.5;
+                            }}
+                            .content a {{
+                                color: #1f73ae;
+                                text-decoration: none;
+                                font-weight: bold;
+                            }}
+                            .content a:hover {{
+                                text-decoration: underline;
+                            }}
+                            .note {{
+                                font-size: 14px;
+                                color: #555;
+                                margin-top: 10px;
+                            }}
+                            .note span {{
+                                color: #ffc107;
+                                font-weight: bold;
+                            }}
+
+                            
+
+                            @media (max-width: 450px) {{
+                                .container {{
+                                    width: 100%;
+                                }}
+                    
+                                .header h1 {{
+                                    font-size: 20px;
+                                }}
+                    
+                                .header {{                
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: start;
+                                }}
+                            }}
+                        </style>
+                    </head>
+                    <body>
+                        <div class='container'>
+                            <div class='header'>
+                                <img src='cid:pizzashop_logo' class='logo-img' alt='PizzaShop'>
+                                <h1 class='pizzashop-header'>Pizza-Shop</h1>
+                            </div>
+                            <div class='content'>
+                                <p>Pizza-Shop.</p>
+                                <p>Please click <a href='{resetLink}'>here</a> to reset your password.</p>
+                                <p>If you encounter any issues or have any questions, please do not hesitate to contact our support team.</p>
+                                <p class='note'><span>Important Note:</span> For security reasons, this link will expire in 15 minutes. If you did not request a password reset, please ignore this email.</p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>";
+
+        message.Body = bodyBuilder.ToMessageBody();
 
         try
         {
@@ -181,32 +295,37 @@ public class AuthenticationController : Controller
             Console.WriteLine($"SMTP Error: {ex.Message}");
         }
     }
-    public IActionResult ResetPassword()
+    public IActionResult ResetPassword(int? ID)
     {
+        var user = _context.Users.FirstOrDefault(u => u.Userid == ID);
+        if (user == null)
+        {
+            return View("ForgotPassword");
+        }
         return View();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> ResetPassword(String newPassword, String cnewPassword)
+    public async Task<IActionResult> ResetPassword(LoginUser logedUser)
     {
-        Console.WriteLine(newPassword);
-        Console.WriteLine(cnewPassword);
+        // Console.WriteLine(newPassword);
+        // Console.WriteLine(cnewPassword);
         var workFactor = 13;
-        if (newPassword != cnewPassword)
+        if (logedUser.Upassword != logedUser.ConfirmUpassword)
         {
             ViewBag.ErrorMsg = "Password doesn't match";
             return View();
         }
-        string userEmail = Request.Cookies["Email"];
-        Console.WriteLine(userEmail);
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+        // string userEmail = Request.Cookies["Email"];
+        // Console.WriteLine(userEmail);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Userid == logedUser.ID);
         if (user == null)
         {
             return Content("User not found");
         }
 
-        var hashed = BCrypt.Net.BCrypt.HashPassword(newPassword, workFactor);
+        var hashed = BCrypt.Net.BCrypt.HashPassword(logedUser.Upassword, workFactor);
         user.Upassword = hashed;
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
