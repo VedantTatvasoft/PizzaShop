@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "Pizzashop-dotnet/1.0.0": {
         "dependencies": {
+          "BCrypt.Net": "0.1.0",
           "MailKit": "4.10.0",
           "Microsoft.EntityFrameworkCore.Design": "7.0.18",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.18",
@@ -51,6 +52,14 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.10.3.0",
             "fileVersion": "1.1000.323.51804"
+          }
+        }
+      },
+      "BCrypt.Net/0.1.0": {
+        "runtime": {
+          "lib/net35/BCrypt.Net.dll": {
+            "assemblyVersion": "0.1.4141.31969",
+            "fileVersion": "0.1.0.0"
           }
         }
       },
@@ -2487,6 +2496,13 @@
       "sha512": "sha512-l1Xm2MWOF2Mzcwuarlw8kWQXLZk3UeB55aQXVyjj23aBfDwOZ3gu5GP2kJ6KlmZeZv2TCzw7x4L3V36iNr3gww==",
       "path": "azure.identity/1.10.3",
       "hashPath": "azure.identity.1.10.3.nupkg.sha512"
+    },
+    "BCrypt.Net/0.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sST2w361Dxt9GGMfpOTiK50wXGV64Ybb1hiX3xjEWnhVYZNF43NuySGwADJa7X1R+bA53NsFR+tuDxcYiJeIOA==",
+      "path": "bcrypt.net/0.1.0",
+      "hashPath": "bcrypt.net.0.1.0.nupkg.sha512"
     },
     "BouncyCastle.Cryptography/2.5.0": {
       "type": "package",

@@ -4,6 +4,8 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
 
 
 
@@ -46,7 +48,7 @@ public class AuthenticationController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     // [Route("/authentication/validate-user")]
-    public ActionResult Login(LoginUser user)
+    public async Task<ActionResult> Login(LoginUser user)
     {
 
 
@@ -61,11 +63,19 @@ public class AuthenticationController : Controller
             return View(user);
         }
 
-        User newUser = new User();
-        newUser.Email = user.Email;
-        newUser.Upassword = user.Upassword;
-        var registeredUser = _context.Users.FirstOrDefault(u => u.Email == newUser.Email);
-        if (registeredUser == null || registeredUser.Upassword != user.Upassword) // Replace this with a secure hash check
+        Console.WriteLine(user.Email);
+
+        var registeredUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+        if (registeredUser == null)
+        {
+            ViewBag.ErrorMsg = "user not found";
+            return View(user);
+        }
+        // Console.WriteLine("regi  : "+ registeredUser.Upassword);
+        bool verifyPassword = BCrypt.Net.BCrypt.Verify(user.Upassword, registeredUser.Upassword);
+        // Console.WriteLine("bool  : "+ verifyPassword);
+
+        if (registeredUser == null || !verifyPassword || user.Email != registeredUser.Email) // Replace this with a secure hash check
         {
             Console.WriteLine("Invalid");
 
@@ -83,8 +93,8 @@ public class AuthenticationController : Controller
                 IsEssential = true,
                 SameSite = SameSiteMode.Strict
             };
-            Response.Cookies.Append("Email", newUser.Email, options);
-            Response.Cookies.Append("Password", newUser.Upassword, options);
+            Response.Cookies.Append("Email", user.Email, options);
+            Response.Cookies.Append("Password", user.Upassword, options);
         }
         return RedirectToAction("UserList", "User");
     }
@@ -125,13 +135,13 @@ public class AuthenticationController : Controller
         Response.Cookies.Append("ResetEmail", Email, options);
 
         // Generate reset link (without token)
-        string resetLink = Url.Action("ResetPassword", "Authentication", null, Request.Scheme);
+        string resetLink = Url.Action("ResetPassword", "Authentication", null, Request.Scheme ) ?? "";
 
         // Send email with reset link
         await SendEmail(user.Email, resetLink);
-        return RedirectToAction("ResetPassword", "Authentication");
+        // return RedirectToAction("ResetPassword", "Authentication");
 
-        // return Content("Password reset link sent to your email.");
+        return Content("Password reset link sent to your email.");
     }
     private async Task SendEmail(string email, string resetLink)
     {
@@ -177,17 +187,33 @@ public class AuthenticationController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> ResetPassword(String newPassword , String cnewPassword)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ResetPassword(String newPassword, String cnewPassword)
     {
-        if(newPassword != cnewPassword){
+        Console.WriteLine(newPassword);
+        Console.WriteLine(cnewPassword);
+        var workFactor = 13;
+        if (newPassword != cnewPassword)
+        {
             ViewBag.ErrorMsg = "Password doesn't match";
             return View();
         }
-        User newUser = new User();
-        newUser.Upassword = newPassword;
+        string userEmail = Request.Cookies["Email"];
+        Console.WriteLine(userEmail);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+        if (user == null)
+        {
+            return Content("User not found");
+        }
+
+        var hashed = BCrypt.Net.BCrypt.HashPassword(newPassword, workFactor);
+        user.Upassword = hashed;
+        _context.Users.Update(user);
         await _context.SaveChangesAsync();
         Response.Cookies.Delete("Email");
-        return Content("Password change successfully");
+        Response.Cookies.Delete("Password");
+        Response.Cookies.Delete("ResetEmail");
+        return Content("Password changed successfully");
 
     }
 
