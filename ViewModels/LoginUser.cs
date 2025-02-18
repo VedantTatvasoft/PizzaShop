@@ -23,7 +23,5 @@ public partial class LoginUser
     [Column("rememberMe")]
     public bool RememberMe { get; set; }
 
-    
-
 
 }

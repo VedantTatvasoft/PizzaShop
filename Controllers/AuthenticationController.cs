@@ -10,8 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-
-
+using Pizzashop_dotnet.Services;
 
 namespace Pizzashop_dotnet.Controllers;
 
@@ -23,10 +22,13 @@ public class AuthenticationController : Controller
     private readonly PizzaShopContext _context;
     private readonly IConfiguration _config;
 
-    public AuthenticationController(PizzaShopContext context, IConfiguration config)
+    private IJwtService _jwtServices;
+
+    public AuthenticationController(PizzaShopContext context, IConfiguration config, IJwtService jwtServices)
     {
         _context = context;
         _config = config;
+        _jwtServices = jwtServices;
     }
 
 
@@ -49,7 +51,7 @@ public class AuthenticationController : Controller
                     ValidIssuer = _config["Jwt:Issuer"],
                     ValidAudience = _config["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"])),
-                    ClockSkew = TimeSpan.Zero 
+                    ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
 
                 return RedirectToAction("Index", "User");
@@ -96,12 +98,15 @@ public class AuthenticationController : Controller
 
         Console.WriteLine(user.Email);
 
-        var registeredUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+        var registeredUser = await _context.Users.Include(u=> u.Role).FirstOrDefaultAsync();
+
+        // var registeredUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
         if (registeredUser == null)
         {
             ViewBag.ErrorMsg = "user not found";
             return View(user);
         }
+        Console.WriteLine(registeredUser.Role.Name);
 
 
 
@@ -131,35 +136,15 @@ public class AuthenticationController : Controller
             // Response.Cookies.Append("Password", user.Upassword, options);
         }
 
-        var tokenString = GenerateJwtToken(user);
+
+        var tokenString = _jwtServices.GenerateJwtToken(registeredUser.Firstname + " " + registeredUser.Lastname, registeredUser.Email, registeredUser.Role.Name);
         Response.Cookies.Append("jwtToken", tokenString);
         // return Ok(new { token = tokenString });
         return RedirectToAction("Index", "User");
     }
 
 
-    private string GenerateJwtToken(LoginUser user)
-    {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
-        {
-            new Claim(ClaimTypes.Name, user.Email),
-            new Claim(ClaimTypes.Role, user.Upassword)
-        };
-
-        var token = new JwtSecurityToken(
-            _config["Jwt:Issuer"],
-            _config["Jwt:Audience"],
-            claims,
-            expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(_config["Jwt:ExpiryInMinutes"])),
-            signingCredentials: credentials);
-
-        var newtoken = new JwtSecurityTokenHandler().WriteToken(token);
-        return newtoken;
-
-    }
     public IActionResult ForgotPassword()
     {
         if (Request.Cookies.TryGetValue("Email", out String? email))
