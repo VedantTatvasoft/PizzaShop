@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "mIezG7czqRigbWQhGd7h/dBcbWIKg/MrL4o/v08D0t3HoNR5i67wrv+PeMvzBfaIW5seXjjWkCUOdNJk4jmPTA==",
+  "dgSpecHash": "81CdVLCFjbJMT7tDnZ1CnDEFxaAwf1cGASnR71u7T/zL/kuMho60xxvUS95g+8SAWGx3e/AepXqyudrxFI8i9g==",
   "success": true,
   "projectFilePath": "C:\\Project\\Pizzashop-dotnet\\Pizzashop-dotnet.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "C:\\Users\\pce174\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\pce174\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\pce174\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\pce174\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.18\\microsoft.aspnetcore.authentication.jwtbearer.7.0.18.nupkg.sha512",
     "C:\\Users\\pce174\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.0\\microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",
     "C:\\Users\\pce174\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\pce174\\.nuget\\packages\\microsoft.build\\17.3.2\\microsoft.build.17.3.2.nupkg.sha512",

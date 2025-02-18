@@ -6,6 +6,10 @@ using MailKit.Security;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 
 
@@ -29,10 +33,37 @@ public class AuthenticationController : Controller
     public IActionResult Login()
     {
 
-        // if (Request.Cookies["Email"] != null)
-        // {
-        //     return RedirectToAction("UserList", "User");
-        // }
+        var token = Request.Cookies["jwtToken"];
+        if (!string.IsNullOrEmpty(token))
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            try
+            {
+                // Validate token using the same parameters as in your JWT middleware
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = _config["Jwt:Issuer"],
+                    ValidAudience = _config["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"])),
+                    ClockSkew = TimeSpan.Zero 
+                }, out SecurityToken validatedToken);
+
+                return RedirectToAction("Index", "User");
+            }
+            catch (SecurityTokenExpiredException)
+            {
+                Response.Cookies.Delete("jwtToken");
+            }
+            catch (Exception)
+            {
+                // Token is invalid in some other way; remove it.
+                Response.Cookies.Delete("jwtToken");
+            }
+        }
         if (Request.Cookies.TryGetValue("Email", out String? email))
         {
             ViewBag.RememberedEmail = email;
@@ -52,11 +83,11 @@ public class AuthenticationController : Controller
     {
 
 
-        // if (!ModelState.IsValid)
-        // {
-        //     ViewBag.ErrorMsg = "data type is not valid";
-        //     return View(user);
-        // }
+        if (!ModelState.IsValid)
+        {
+            ViewBag.ErrorMsg = "data type is not valid";
+            return View(user);
+        }
         if (user == null || string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Upassword))
         {
             ViewBag.ErrorMsg = "Empty email and password";
@@ -71,6 +102,10 @@ public class AuthenticationController : Controller
             ViewBag.ErrorMsg = "user not found";
             return View(user);
         }
+
+
+
+
         // Console.WriteLine("regi  : "+ registeredUser.Upassword);
         bool verifyPassword = BCrypt.Net.BCrypt.Verify(user.Upassword, registeredUser.Upassword);
         // Console.WriteLine("bool  : "+ verifyPassword);
@@ -93,21 +128,44 @@ public class AuthenticationController : Controller
                 IsEssential = true,
                 SameSite = SameSiteMode.Strict
             };
-            Response.Cookies.Append("Email", user.Email, options);
-            Response.Cookies.Append("Password", user.Upassword, options);
+            // Response.Cookies.Append("Password", user.Upassword, options);
         }
+
+        var tokenString = GenerateJwtToken(user);
+        Response.Cookies.Append("jwtToken", tokenString);
+        // return Ok(new { token = tokenString });
         return RedirectToAction("Index", "User");
     }
 
 
+    private string GenerateJwtToken(LoginUser user)
+    {
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.Name, user.Email),
+            new Claim(ClaimTypes.Role, user.Upassword)
+        };
 
+        var token = new JwtSecurityToken(
+            _config["Jwt:Issuer"],
+            _config["Jwt:Audience"],
+            claims,
+            expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(_config["Jwt:ExpiryInMinutes"])),
+            signingCredentials: credentials);
 
+        var newtoken = new JwtSecurityTokenHandler().WriteToken(token);
+        return newtoken;
+
+    }
     public IActionResult ForgotPassword()
     {
         if (Request.Cookies.TryGetValue("Email", out String? email))
         {
             ViewBag.RememberedEmail = email;
+            ViewBag.SendMail = "Reset password link has been send to your email account";
         }
         return View();
     }
@@ -135,13 +193,15 @@ public class AuthenticationController : Controller
         Response.Cookies.Append("ResetEmail", Email, options);
 
         // Generate reset link (without token)
-        string resetLink = Url.Action("ResetPassword", "Authentication", new { ID = user.Userid }, Request.Scheme) ?? "";
+        string resetLink = Url.Action("ResetPassword", "Authentication", new { email = user.Email }, Request.Scheme) ?? "";
 
         // Send email with reset link
         await SendEmail(user.Email, resetLink);
-        // return RedirectToAction("ResetPassword", "Authentication");
+        TempData["SuccessMessage"] = "A reset password link has been sent to your email account";
+        // ViewBag.ErrorMsg = "Invalid email and password";
+        return RedirectToAction("ForgotPassword", "Authentication");
 
-        return Content("Password reset link sent to your email.");
+        // return Content("Password reset link sent to your email.");
     }
     private async Task SendEmail(string email, string resetLink)
     {
@@ -295,9 +355,9 @@ public class AuthenticationController : Controller
             Console.WriteLine($"SMTP Error: {ex.Message}");
         }
     }
-    public IActionResult ResetPassword(int? ID)
+    public IActionResult ResetPassword(String? email)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Userid == ID);
+        var user = _context.Users.FirstOrDefault(u => u.Email == email);
         if (user == null)
         {
             return View("ForgotPassword");
@@ -307,7 +367,7 @@ public class AuthenticationController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> ResetPassword(LoginUser logedUser)
+    public async Task<IActionResult> ResetPassword(ResetPaasswordVModel logedUser)
     {
         // Console.WriteLine(newPassword);
         // Console.WriteLine(cnewPassword);
@@ -319,7 +379,7 @@ public class AuthenticationController : Controller
         }
         // string userEmail = Request.Cookies["Email"];
         // Console.WriteLine(userEmail);
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Userid == logedUser.ID);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == logedUser.Email);
         if (user == null)
         {
             return Content("User not found");

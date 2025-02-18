@@ -2,14 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-
-namespace Pizzashop_dotnet.Models;
-
-
+namespace Pizzashop_dotnet;
 [Index("Email", Name = "users_email_key", IsUnique = true)]
-[Index("Phone", Name = "users_phone_key", IsUnique = true)]
-public partial class LoginUser
+
+public class ResetPaasswordVModel
 {
+
     [Column("email")]
     [StringLength(100)]
     public string Email { get; set; } = null!;
@@ -18,12 +16,8 @@ public partial class LoginUser
     [StringLength(150)]
     public string Upassword { get; set; } = null!;
 
-   
-
-    [Column("rememberMe")]
-    public bool RememberMe { get; set; }
-
-    
-
-
+    [Column("cupassword")]
+    [StringLength(150)]
+    public string ConfirmUpassword { get; set; } = null!;
 }
+
