@@ -1,7 +1,7 @@
 @{
     Layout = "_Layout";
 }
-
+@model User
 <!-- content header  -->
 <div class="d-flex  align-items-center justify-content-between">
     <h3 class="text-blue">Add New User</h3>
@@ -12,27 +12,27 @@
 <!-- box with shadow  -->
 <div class="bg-white border rounded shadow mt-3 p-3">
     <!-- form  -->
-    <form class="form p-3" action="">
+    <form class="form p-3" asp-controller="User" asp-action="Create" method="POST">
         <div class="row gap-sm-0 gap-3">
             <div class=" form-floating col-sm-6 col-12">
-                <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name">
-                <label for="fname" class="ms-3">First Name</label>
+                <input asp-for="Firstname" class="form-control" type="text" name="fname" id="fname" placeholder="First Name">
+                <label asp-for="Firstname" for="fname" class="ms-3">First Name</label>
             </div>
             <div class=" form-floating col-sm-6 col-12">
-                <input class="form-control" type="text" name="lname" id="lname" placeholder="Last Name">
-                <label for="lname" class="ms-3">Last Name</label>
+                <input asp-for="Lastname" class="form-control" type="text" name="lname" id="lname" placeholder="Last Name">
+                <label asp-for="Lastname" for="lname" class="ms-3">Last Name</label>
             </div>
         </div>
         <div class="row my-4 gap-sm-0 gap-3">
             <div class="form-floating col-sm-6 col-12">
-                <input class="form-control " type="text" name="uname" id="uname" placeholder="User Name">
-                <label for="uname" class="ms-3">User Name</label>
+                <input asp-for="Username" class="form-control " type="text" name="uname" id="uname" placeholder="User Name">
+                <label asp-for="Username" for="uname" class="ms-3">User Name</label>
             </div>
             <div class="form-floating col-sm-6 col-12">
-                <select name="" id="role-dropdown" class="form-select form-control  ">
-                    <option value="">Role</option>
+                <select asp-for="Role" asp-items="@ViewBag.Role" name="" id="role-dropdown" class="form-select form-control  ">
+                    @* <option value="">Role</option> *@
                 </select>
-                <label for="role-dropdown" class="ms-3">Role</label>
+                <label asp-for="Roleid" for="role-dropdown" class="ms-3">Role</label>
             </div>
         </div>
         <div class="row gap-sm-0 gap-3">
@@ -58,7 +58,7 @@
 
         <div class="row gap-md-0 gap-3">
             <div class="form-floating col-md-4 col-12">
-                <select asp-items="@ViewBag.Country" class="form-select form-control" id="country">
+                <select asp-for="Country" asp-items="@ViewBag.Country" class="form-select form-control" id="country">
                 </select>
                 <label for="country" class="ms-3">Country</label>
             </div>

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,6 +28,7 @@ public class UserController : Controller
         ViewData["Country"] = new SelectList(_context.Countries, "Countryid", "Name");
         ViewData["State"] = new SelectList(_context.States, "Stateid", "Name");
         ViewData["City"] = new SelectList(_context.Cities, "Cityid", "Name");
+        ViewData["Role"] = new SelectList(_context.Roles, "Roleid", "Name");
         return View();
     }
 
