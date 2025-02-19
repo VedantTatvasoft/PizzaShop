@@ -17,7 +17,7 @@ namespace Pizzashop_dotnet.Services
         }
 
 
-        public string GenerateJwtToken(string name, string email, string role)
+        public string GenerateJwtToken(string name, string email, string role , string username)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -26,7 +26,8 @@ namespace Pizzashop_dotnet.Services
             {
             new Claim(ClaimTypes.Name, name),
             new Claim(ClaimTypes.Email, email),
-            new Claim(ClaimTypes.Role, role)
+            new Claim(ClaimTypes.Role, role),
+            new Claim(ClaimTypes.NameIdentifier , username)
         };
 
             var token = new JwtSecurityToken(

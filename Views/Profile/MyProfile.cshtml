@@ -1,0 +1,105 @@
+@{
+    Layout = "_Layout";
+}
+@model MyProfileVModel
+<!-- content header  -->
+<div class="d-flex  align-items-center justify-content-between">
+    <h3 class="text-blue">My Profile</h3>
+    @* <a asp-controller="User" asp-action="Index" class="btn bg-blue text-white d-flex align-items-center">Back</a> *@
+</div>
+<!-- box with shadow  -->
+<div class="bg-white border rounded shadow mt-3 ">
+    <div>
+        <img src="/images/profile_div_bg.jpg" class="w-100 bg-white p-0 m-0 rounded-top" style="height: 60px;" alt="">
+    </div>
+    <div class="d-flex">
+        <img src="/images/Default_pfp.svg.png" class="ms-4 profile-header-img" height="100px" alt="" style="">
+        <div class="d-flex align-items-center justify-content-between w-100 mx-3">
+            <div class="mt-3">
+                <h5>@Model.Firstname @Model.Lastname</h5>
+                <h6>@Model.Role</h6>
+            </div>
+            <div>
+                <h5>@Model.Email</h5>
+            </div>
+        </div>
+    </div>
+    <!-- form  -->
+    <form asp-controller="Profile" asp-action="MyProfile" method="POST" class="form p-3 mt-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @* <input type="hidden" asp-for="Email">
+        <input type="hidden" asp-for="Upassword"> *@
+        <div class="row gap-sm-0 gap-3 form-group">
+            <div class=" form-floating col-sm-6 col-12 form-group">
+                <input asp-for="Firstname" class="form-control" type="text" id="fname" placeholder="First Name">
+                <label asp-for="Firstname" for="fname" class=" control-label ms-2">First Name</label>
+                <span asp-validation-for="Firstname" class="text-danger"></span>
+            </div>
+            <div class=" form-floating col-sm-6 col-12 form-group">
+
+                <input asp-for="Lastname" class="form-control" id="lname" placeholder="Last Name">
+                <label asp-for="Lastname" for="lname" class="ms-2">Last Name</label>
+                <span asp-validation-for="Lastname" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row my-4 gap-sm-0 gap-3">
+            <div class="form-floating col-sm-6 col-12">
+                <input asp-for="Username" class="form-control " id="uname" placeholder="User Name">
+                <label asp-for="Username" for="uname" class="ms-2">User Name</label>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-floating col-sm-6 col-12">
+                <input asp-for="Phone" class="form-control" id="phone" placeholder="Phone">
+                <label asp-for="Phone" for="phone" class="ms-2">Phone</label>
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row gap-md-0 gap-3">
+            <div class="form-floating col-md-4 col-12">
+
+                <select asp-for="Country" class="form-select form-control" id="country" asp-items="ViewBag.Country">
+                    @* <option value="@Model.Country" selected>@Model.CountryNavigation.Name</option> *@
+                </select>
+                <label asp-for="Country" for="country" class="control-label ms-2">Country</label>
+                <span asp-validation-for="Country" class="text-danger"></span>
+
+            </div>
+            <div class="form-floating col-md-4 col-12">
+                <select asp-for="State" id="state" class="form-select form-control" asp-items="ViewBag.State">
+                    @* <option value="@Model.StateNavigation.Stateid" selected>@Model.StateNavigation.Name</option> *@
+                </select>
+                <label asp-for="State" for="state" class="control-label ms-2">State</label>
+            </div>
+            <div class="form-floating col-md-4 col-12">
+                <select asp-for="City" class="form-select form-control" id="city" asp-items="ViewBag.City">
+                    @* <option value="@Model.CityNavigation.Cityid" selected>@Model.CityNavigation.Name</option> *@
+                </select>
+                <label asp-for="City" for="city" class="control-label ms-2">City</label>
+            </div>
+        </div>
+        <div class="row my-4 gap-md-0 gap-3">
+            <div class="form-floating col-md-8 col-12">
+                <input asp-for="Address" class="form-control" id="address" placeholder="Address">
+                <label asp-for="Address" for="address" class="ms-2">Address</label>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-floating col-md-4 col-12">
+                <input asp-for="Zipcode" class="form-control" id="zipcode" placeholder="Zipcode">
+                <label asp-for="Zipcode" for="zipcode" class="ms-2">Zipcode</label>
+                <span asp-validation-for="Zipcode" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="d-flex row gap-sm-0 gap-3 justify-content-end">
+            <div class="col-auto text-center">
+                <button type="submit" id="" class="btn bg-blue text-white d-flex align-items-center">Update</button>
+            </div>
+            <div class="col-auto text-center">
+                <a asp-controller="User" asp-action="Index" class="blue-outline btn d-flex align-items-center">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- finish box-section  -->

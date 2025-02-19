@@ -1,8 +1,9 @@
+@model IEnumerable<Pizzashop_dotnet.Models.User>
 @{
     Layout = "_Layout";
 }
 
-@model IEnumerable<Pizzashop_dotnet.Models.User>
+
 
 <body>
     <div class="d-flex align-items-center justify-content-between">
@@ -16,10 +17,80 @@
                     <i class="bi bi-search"></i>
                 </span>
             </div>
-            <a href="add-new-user.html" class="btn bg-blue text-white d-flex align-items-center ms-2 px-2 py-1">
+            <a asp-controller="User" asp-action="Create" class="btn bg-blue text-white d-flex align-items-center ms-2 px-2 py-1">
                 <i class="bi bi-plus h4 p-0 m-0 mb-1 "></i>
+    
                 <span class="d-none d-md-block">AddUser</span></a>
         </form>
     </div>
- 
+    <div class="border rounded shadow bg-white mt-3 p-3 text-nowrap ">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"><span>Name</span><i class="bi bi-arrow-down-up ms-2"></i></th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Email)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Phone)</th>
+                        <th scope="col"><span>@Html.DisplayNameFor(model => model.Role)</span><i
+                                class="bi bi-arrow-down-up ms-2"></i></th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Status)</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="images/Default_pfp.svg.png" height="25px" alt="">
+                                <span>@Html.DisplayFor(modelItem => item.Firstname)</span>
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Role.Name)</td>
+                            <td><span class="status">@Html.DisplayFor(modelItem => item.Status)</span></td>
+                            <td>
+                                <a href="edit-user.html"><i class="bi bi-pen"></i></a>
+                                <a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"> <i
+                                        class="bi bi-trash ms-3"></i></a>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- pagination  -->
+        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mt-2">
+            <div class="d-flex align-items-center  gap-2">
+                <span>Items Per page:</span>
+                <select name="" id="role-dropdown" class="form-select" style="width: 70px;">
+                    <option value="" selected>1</option>
+                    <option value="">2</option>
+                    <option value="">5</option>
+                    <option value="">10</option>
+                    <option value="">15</option>
+                    <option value="">20</option>
+                </select>
+            </div>
+            <div class="d-flex align-items-center  gap-2">
+                <span>Showing 1-5 of 13</span>
+                <div class="pagination gap-2">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <!-- finish pagination  -->
+    </div>
 </body>

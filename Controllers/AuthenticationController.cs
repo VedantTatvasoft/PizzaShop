@@ -97,7 +97,7 @@ public class AuthenticationController : Controller
         }
 
         Console.WriteLine(user.Email);
-
+        
         var registeredUser = await _context.Users.Include(u=> u.Role).FirstOrDefaultAsync();
 
         // var registeredUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
@@ -137,7 +137,7 @@ public class AuthenticationController : Controller
         }
 
 
-        var tokenString = _jwtServices.GenerateJwtToken(registeredUser.Firstname + " " + registeredUser.Lastname, registeredUser.Email, registeredUser.Role.Name);
+        var tokenString = _jwtServices.GenerateJwtToken(registeredUser.Firstname + " " + registeredUser.Lastname, registeredUser.Email, registeredUser.Role.Name , registeredUser.Username);
         Response.Cookies.Append("jwtToken", tokenString);
         // return Ok(new { token = tokenString });
         return RedirectToAction("Index", "User");

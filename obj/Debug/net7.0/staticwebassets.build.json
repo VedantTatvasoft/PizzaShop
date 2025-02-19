@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "0La3jppiOWk7npRtBrbgAR5WS22oKx+IZhzSAhFcDJc=",
+  "Hash": "evYa7RIIGTwa+U3t/cTl37s6cBmnc3aaBXfBMlnbzvw=",
   "Source": "Pizzashop-dotnet",
   "BasePath": "_content/Pizzashop-dotnet",
   "Mode": "Default",
@@ -882,6 +882,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\web-section-svgrepo-com.svg"
+    },
+    {
+      "Identity": "C:\\Project\\Pizzashop-dotnet\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "SourceId": "Pizzashop-dotnet",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Project\\Pizzashop-dotnet\\wwwroot\\",
+      "BasePath": "_content/Pizzashop-dotnet",
+      "RelativePath": "js/bootstrap.bundle.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\bootstrap.bundle.min.js"
     },
     {
       "Identity": "C:\\Project\\Pizzashop-dotnet\\wwwroot\\js\\site.js",

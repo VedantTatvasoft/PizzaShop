@@ -8,6 +8,8 @@ body,
 
 }
 
+
+
 body {
     overflow: hidden;
 }
@@ -41,7 +43,11 @@ body {
     right: 10px;
     top: 6px;
 }
-
+.eye-icon-user{
+    position: absolute;
+    right: 12px;
+    top: 13px;
+}
 
 .pizza-image {
     width: 180%;

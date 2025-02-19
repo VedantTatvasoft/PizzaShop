@@ -201,6 +201,10 @@
       "PackagePath": "staticwebassets\\img\\web-section-svgrepo-com.svg"
     },
     {
+      "Id": "C:\\Project\\Pizzashop-dotnet\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
+    },
+    {
       "Id": "C:\\Project\\Pizzashop-dotnet\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

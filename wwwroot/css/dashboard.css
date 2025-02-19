@@ -25,7 +25,13 @@ body{
 }
 
 
-
+input[disabled],
+textarea[disabled],
+button[disabled],
+select[disabled]{
+    background-color: white !important;
+    cursor: not-allowed;
+}
 
 /* form-floating */
 .form-floating>.form-control:focus~label,
@@ -35,7 +41,7 @@ body{
     background-color: white;
     padding: 0 7px;
     top: 12px;
-    left: 8px;
+    /* left: 5px; */
     height: fit-content;
 }
 
@@ -237,6 +243,10 @@ div.form-check {
 .categories-sidebar {
     overflow-y: scroll;
     height: 420px;
+}
+
+.profile-header-img{
+    margin-top: -18px !important;
 }
 
 @media(max-width:992px) {
