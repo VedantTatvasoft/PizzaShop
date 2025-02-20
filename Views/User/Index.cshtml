@@ -1,4 +1,8 @@
-@model IEnumerable<Pizzashop_dotnet.Models.User>
+@using X.PagedList.Mvc.Core;
+@using Azure;
+@using Microsoft.EntityFrameworkCore.Metadata.Internal;
+@* @model IEnumerable<Pizzashop_dotnet.Models.User> *@
+@model X.PagedList.IPagedList<Pizzashop_dotnet.Models.User>
 @{
     Layout = "_Layout";
 }
@@ -8,32 +12,34 @@
 <body>
     <div class="d-flex align-items-center justify-content-between">
         <h1 class="text-blue">Users</h1>
-        <form class="d-flex align-items-center">
+        <form class="d-flex align-items-center" method="get">
             <div class="search-div h-100">
-                <input class="input-search px-2 form-control d-sm-block d-none " type="search" placeholder="Search">
-                <input class="input-search px-2 form-control d-sm-none" style="width: 100px;" type="search"
+                <input class="input-search px-2 form-control d-sm-block d-none "  value="@Context.Request.Query["search"]" name="search" type="search" placeholder="Search">
+                <input class="input-search px-2 form-control d-sm-none" name="search" value="@Context.Request.Query["search"]" style="width: 100px;" type="search"
                     placeholder="Search">
                 <span class="search-icon">
                     <i class="bi bi-search"></i>
                 </span>
             </div>
+            <button type="submit" hidden>sub</button>
             <a asp-controller="User" asp-action="Create" class="btn bg-blue text-white d-flex align-items-center ms-2 px-2 py-1">
                 <i class="bi bi-plus h4 p-0 m-0 mb-1 "></i>
+    
     
                 <span class="d-none d-md-block">AddUser</span></a>
         </form>
     </div>
     <div class="border rounded shadow bg-white mt-3 p-3 text-nowrap ">
         <div class="table-responsive">
+
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col"><span>Name</span><i class="bi bi-arrow-down-up ms-2"></i></th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.Email)</th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.Phone)</th>
-                        <th scope="col"><span>@Html.DisplayNameFor(model => model.Role)</span><i
-                                class="bi bi-arrow-down-up ms-2"></i></th>
-                        <th scope="col">@Html.DisplayNameFor(model => model.Status)</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        @* <th scope="col"><span>Role</span><i class="bi bi-arrow-down-up ms-2"></i></th> *@
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -44,12 +50,12 @@
                         <tr>
                             <td>
                                 <img src="images/Default_pfp.svg.png" height="25px" alt="">
-                                <span>@Html.DisplayFor(modelItem => item.Firstname)</span>
+                                <span>@item.Firstname</span>
                             </td>
-                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Role.Name)</td>
-                            <td><span class="status">@Html.DisplayFor(modelItem => item.Status)</span></td>
+                            <td>@item.Email</td>
+                            <td>@item.Phone</td>
+                            @* <td>@item.Role.Name</td> *@
+                            <td><span class="status">@item.Status</span></td>
                             <td>
                                 <a href="edit-user.html"><i class="bi bi-pen"></i></a>
                                 <a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"> <i
@@ -92,5 +98,8 @@
             </div>
         </div>
         <!-- finish pagination  -->
+        <div>
+            @Html.PagedListPager(Model , page => Url.Action("Index" , new {page, search = Context.Request.Query["search"]}))
+        </div>
     </div>
 </body>

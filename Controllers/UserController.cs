@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pizzashop_dotnet.Models;
+using X.PagedList;
 
 namespace Pizzashop_dotnet.Controllers;
 
@@ -18,12 +19,20 @@ public class UserController : Controller
     }
 
 
-    public IActionResult Index()
+    public IActionResult Index(string search, int? page )
     {
-        var user = _context.Users.Include(r => r.Role).ToList();
-        return View(user);
+        int pageSize = 3;
+        int pageNumber = page ?? 1;
+        // var user = _context.Users.Include(r => r.Role).ToList();
+        var user = _context.Users.AsQueryable();
+        if(!string.IsNullOrEmpty(search)){
+            user = user.Where(u => u.Firstname.Contains(search) || u.Email.Contains(search));
+        }
+        var pagedUsers = user.OrderBy(u => u.Userid).ToPagedList(pageNumber, pageSize);
+        return View(pagedUsers);
     }
 
+    [HttpGet]
     public async Task<IActionResult> Create()
     {
         ViewData["Country"] = new SelectList(_context.Countries, "Countryid", "Name");
@@ -32,13 +41,16 @@ public class UserController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(User user)
     {
-        if(user==null){
+        if (user == null)
+        {
             return NotFound("user not found");
         }
-        _context.Add(user);
+        user.Upassword = BCrypt.Net.BCrypt.HashPassword(user.Upassword);
+        _context.Users.Add(user);
         await _context.SaveChangesAsync();
-        return Content("Successfully add");
+        return RedirectToAction("Index", "User");
     }
 }

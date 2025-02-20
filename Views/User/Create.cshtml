@@ -1,7 +1,7 @@
 @{
     Layout = "_Layout";
 }
-@model User
+@model Pizzashop_dotnet.Models.User
 <!-- content header  -->
 <div class="d-flex  align-items-center justify-content-between">
     <h3 class="text-blue">Add New User</h3>
@@ -15,21 +15,21 @@
     <form class="form p-3" asp-controller="User" asp-action="Create" method="POST">
         <div class="row gap-sm-0 gap-3">
             <div class=" form-floating col-sm-6 col-12">
-                <input asp-for="Firstname" class="form-control" type="text" name="fname" id="fname" placeholder="First Name">
+                <input asp-for="Firstname" class="form-control" type="text"  id="fname" placeholder="First Name">
                 <label asp-for="Firstname" for="fname" class="ms-3">First Name</label>
             </div>
             <div class=" form-floating col-sm-6 col-12">
-                <input asp-for="Lastname" class="form-control" type="text" name="lname" id="lname" placeholder="Last Name">
+                <input asp-for="Lastname" class="form-control" type="text"  id="lname" placeholder="Last Name">
                 <label asp-for="Lastname" for="lname" class="ms-3">Last Name</label>
             </div>
         </div>
         <div class="row my-4 gap-sm-0 gap-3">
             <div class="form-floating col-sm-6 col-12">
-                <input asp-for="Username" class="form-control " type="text" name="uname" id="uname" placeholder="User Name">
+                <input asp-for="Username" class="form-control " type="text"  id="uname" placeholder="User Name">
                 <label asp-for="Username" for="uname" class="ms-3">User Name</label>
             </div>
             <div class="form-floating col-sm-6 col-12">
-                <select asp-for="Role" asp-items="@ViewBag.Role" name="" id="role-dropdown" class="form-select form-control  ">
+                <select asp-for="Roleid" asp-items="@ViewBag.Role" id="role-dropdown" class="form-select form-control  ">
                     @* <option value="">Role</option> *@
                 </select>
                 <label asp-for="Roleid" for="role-dropdown" class="ms-3">Role</label>
@@ -37,17 +37,17 @@
         </div>
         <div class="row gap-sm-0 gap-3">
             <div class="form-floating col-sm-6 col-12">
-                <input asp-for="Email" class="form-control " type="email" name="" id="email" placeholder="Email">
+                <input asp-for="Email" class="form-control " type="email"   id="email" placeholder="Email">
                 <label asp-for="Email" for="email" class="ms-3">Email</label>
             </div>
             <div class="form-floating col-sm-6 col-12">
-                <input asp-for="Upassword" class="form-control " type="password" name="" id="password" placeholder="Password">
+                <input asp-for="Upassword" class="form-control " type="password"   id="password" placeholder="Password">
                 <label asp-for="Upassword" for="password" class="ms-3">Password</label>
             </div>
         </div>
         <div class="row my-4">
             <div class="">
-                <input asp-for="Profileimageurl" type="file" name="" id="fileInput" class="file-input-none">
+                <input asp-for="Profileimageurl" type="file"   id="fileInput" class="file-input-none">
                 <label asp-for="Profileimageurl" class="file-box form-control d-flex flex-column align-items-center justify-content-center "
                     for="fileInput">
                     <img height="20px" src="img/upload-cloud-svgrepo-com.svg" alt="">
@@ -78,15 +78,15 @@
         </div>
         <div class="row my-4 gap-md-0 gap-3">
             <div class="form-floating col-md-4 col-12">
-                <input  asp-for="Zipcode" class="form-control" type="text" name="" id="zipcode" placeholder="Zipcode">
+                <input  asp-for="Zipcode" class="form-control" type="text"  id="zipcode" placeholder="Zipcode">
                 <label  asp-for="Zipcode" for="zipcode" class="ms-3">Zipcode</label>
             </div>
             <div class="form-floating col-md-4 col-12">
-                <input asp-for="Address" class="form-control" type="text" name="" id="address" placeholder="Address">
+                <input asp-for="Address" class="form-control" type="text"  id="address" placeholder="Address">
                 <label asp-for="Address" for="address" class="ms-3">Address</label>
             </div>
             <div class="form-floating col-md-4 col-12">
-                <input asp-for="Phone" class="form-control" type="number" name="" id="phone" placeholder="Phone">
+                <input asp-for="Phone" class="form-control" type="number"  id="phone" placeholder="Phone">
                 <label asp-for="Phone" for="phone" class="ms-3">Phone</label>
             </div>
         </div>
