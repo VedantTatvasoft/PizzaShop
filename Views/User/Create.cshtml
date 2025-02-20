@@ -37,18 +37,18 @@
         </div>
         <div class="row gap-sm-0 gap-3">
             <div class="form-floating col-sm-6 col-12">
-                <input class="form-control " type="email" name="" id="email" placeholder="Email">
-                <label for="email" class="ms-3">Email</label>
+                <input asp-for="Email" class="form-control " type="email" name="" id="email" placeholder="Email">
+                <label asp-for="Email" for="email" class="ms-3">Email</label>
             </div>
             <div class="form-floating col-sm-6 col-12">
-                <input class="form-control " type="password" name="" id="password" placeholder="Password">
-                <label for="password" class="ms-3">Password</label>
+                <input asp-for="Upassword" class="form-control " type="password" name="" id="password" placeholder="Password">
+                <label asp-for="Upassword" for="password" class="ms-3">Password</label>
             </div>
         </div>
         <div class="row my-4">
             <div class="">
-                <input type="file" name="" id="fileInput" class="file-input-none">
-                <label class="file-box form-control d-flex flex-column align-items-center justify-content-center "
+                <input asp-for="Profileimageurl" type="file" name="" id="fileInput" class="file-input-none">
+                <label asp-for="Profileimageurl" class="file-box form-control d-flex flex-column align-items-center justify-content-center "
                     for="fileInput">
                     <img height="20px" src="img/upload-cloud-svgrepo-com.svg" alt="">
                     <span>Browse files</span>
@@ -58,39 +58,42 @@
 
         <div class="row gap-md-0 gap-3">
             <div class="form-floating col-md-4 col-12">
-                <select asp-for="Country" asp-items="@ViewBag.Country" class="form-select form-control" id="country">
+                <select asp-for="Country" asp-items="@ViewBag.Country" class="form-select form-control" id="countryDropdown">
+                    <option value="" selected>-- Select Country --</option>
                 </select>
-                <label for="country" class="ms-3">Country</label>
+                <label asp-for="Country" for="country" class="ms-3">Country</label>
             </div>
             <div class="form-floating col-md-4 col-12">
-                <select asp-items="@ViewBag.State" class="form-select form-control" id="state">
+                <select  asp-for="State" class="form-select form-control" id="stateDropdown">
+                     <option value="" selected>-- Select State --</option>
                 </select>
-                <label for="state" class="ms-3">State</label>
+                <label  asp-for="State" for="state" class="ms-3">State</label>
             </div>
             <div class="form-floating col-md-4 col-12">
-                <select asp-items="@ViewBag.City" class="form-select form-control" id="city">
+                <select asp-for="City"  class="form-select form-control" id="cityDropdown">
+                     <option value="" selected>-- Select City --</option>
                 </select>
-                <label for="city" class="ms-3">City</label>
+                <label asp-for="City" for="city" class="ms-3">City</label>
             </div>
         </div>
         <div class="row my-4 gap-md-0 gap-3">
             <div class="form-floating col-md-4 col-12">
-                <input class="form-control" type="text" name="" id="zipcode" placeholder="Zipcode">
-                <label for="zipcode" class="ms-3">Zipcode</label>
+                <input  asp-for="Zipcode" class="form-control" type="text" name="" id="zipcode" placeholder="Zipcode">
+                <label  asp-for="Zipcode" for="zipcode" class="ms-3">Zipcode</label>
             </div>
             <div class="form-floating col-md-4 col-12">
-                <input class="form-control" type="text" name="" id="address" placeholder="Address">
-                <label for="address" class="ms-3">Address</label>
+                <input asp-for="Address" class="form-control" type="text" name="" id="address" placeholder="Address">
+                <label asp-for="Address" for="address" class="ms-3">Address</label>
             </div>
             <div class="form-floating col-md-4 col-12">
-                <input class="form-control" type="number" name="" id="phone" placeholder="Phone">
-                <label for="phone" class="ms-3">Phone</label>
+                <input asp-for="Phone" class="form-control" type="number" name="" id="phone" placeholder="Phone">
+                <label asp-for="Phone" for="phone" class="ms-3">Phone</label>
             </div>
         </div>
 
         <div class="d-flex  row gap-sm-0 gap-3">
             <div class="col-auto text-center">
-                <a href="" class="btn bg-blue text-white d-flex align-items-center">Create User</a>
+                <button type="submit" id="" class="btn bg-blue text-white d-flex align-items-center">Create User</button>
             </div>
             <div class="col-auto text-center">
                 <a asp-controller="User" asp-action="Index" class="blue-outline btn d-flex align-items-center">Cancel</a>
@@ -99,3 +102,5 @@
     </form>
 </div>
 <!-- finish box-section  -->
+
+<script src="~/js/site.js"></script>

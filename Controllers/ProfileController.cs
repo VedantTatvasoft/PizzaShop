@@ -17,6 +17,7 @@ public class ProfileController : Controller
     {
         _context = context;
     }
+    [HttpGet]
     public async Task<IActionResult> MyProfile()
     {
 
@@ -46,10 +47,24 @@ public class ProfileController : Controller
             Zipcode = user.Zipcode
         };
         ViewData["Country"] = new SelectList(_context.Countries, "Countryid", "Name");
-        ViewData["State"] = new SelectList(_context.States, "Stateid", "Name");
-        ViewData["City"] = new SelectList(_context.Cities, "Cityid", "Name");
+        ViewData["State"] = new SelectList(_context.States.Where(s => s.Countryid == model.Country), "Stateid", "Name");
+        ViewData["City"] = new SelectList(_context.Cities.Where(c => c.Stateid == model.State), "Cityid", "Name");
         return View(model);
     }
+    [HttpGet]
+    public JsonResult GetStates(int countryId)
+    {
+        var states = _context.States.Where(s => s.Countryid == countryId).Select(s => new { s.Stateid, s.Name }).ToList();
+        return Json(states);
+    }
+
+    [HttpGet]
+    public JsonResult GetCities(int stateId)
+    {
+        var cities = _context.Cities.Where(c => c.Stateid == stateId).Select(c => new { c.Cityid, c.Name }).ToList();
+        return Json(cities);
+    }
+
     [HttpPost]
     public async Task<IActionResult> MyProfile(MyProfileVModel model)
     {

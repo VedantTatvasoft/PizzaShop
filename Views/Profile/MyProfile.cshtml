@@ -2,6 +2,7 @@
     Layout = "_Layout";
 }
 @model MyProfileVModel
+
 <!-- content header  -->
 <div class="d-flex  align-items-center justify-content-between">
     <h3 class="text-blue">My Profile</h3>
@@ -59,21 +60,22 @@
         <div class="row gap-md-0 gap-3">
             <div class="form-floating col-md-4 col-12">
 
-                <select asp-for="Country" class="form-select form-control" id="country" asp-items="ViewBag.Country">
+                <select asp-for="Country" class="form-select form-control" id="countryDropdown"
+                    asp-items="ViewBag.Country">
                     @* <option value="@Model.Country" selected>@Model.CountryNavigation.Name</option> *@
                 </select>
                 <label asp-for="Country" for="country" class="control-label ms-2">Country</label>
-                <span asp-validation-for="Country" class="text-danger"></span>
+                @* <span asp-validation-for="Country" class="text-danger"></span> *@
 
             </div>
             <div class="form-floating col-md-4 col-12">
-                <select asp-for="State" id="state" class="form-select form-control" asp-items="ViewBag.State">
+                <select asp-for="State" id="stateDropdown" class="form-select form-control" asp-items="ViewBag.State">
                     @* <option value="@Model.StateNavigation.Stateid" selected>@Model.StateNavigation.Name</option> *@
                 </select>
                 <label asp-for="State" for="state" class="control-label ms-2">State</label>
             </div>
             <div class="form-floating col-md-4 col-12">
-                <select asp-for="City" class="form-select form-control" id="city" asp-items="ViewBag.City">
+                <select asp-for="City" class="form-select form-control" id="cityDropdown" asp-items="ViewBag.City">
                     @* <option value="@Model.CityNavigation.Cityid" selected>@Model.CityNavigation.Name</option> *@
                 </select>
                 <label asp-for="City" for="city" class="control-label ms-2">City</label>
@@ -97,9 +99,11 @@
                 <button type="submit" id="" class="btn bg-blue text-white d-flex align-items-center">Update</button>
             </div>
             <div class="col-auto text-center">
-                <a asp-controller="User" asp-action="Index" class="blue-outline btn d-flex align-items-center">Cancel</a>
+                <a asp-controller="User" asp-action="Index"
+                    class="blue-outline btn d-flex align-items-center">Cancel</a>
             </div>
         </div>
     </form>
 </div>
 <!-- finish box-section  -->
+<script src="~/js/site.js"></script>

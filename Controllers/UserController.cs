@@ -20,17 +20,25 @@ public class UserController : Controller
 
     public IActionResult Index()
     {
-        var user = _context.Users.Include(r=>r.Role).ToList();
+        var user = _context.Users.Include(r => r.Role).ToList();
         return View(user);
     }
 
-    public async Task<IActionResult> Create(){
+    public async Task<IActionResult> Create()
+    {
         ViewData["Country"] = new SelectList(_context.Countries, "Countryid", "Name");
-        ViewData["State"] = new SelectList(_context.States, "Stateid", "Name");
-        ViewData["City"] = new SelectList(_context.Cities, "Cityid", "Name");
         ViewData["Role"] = new SelectList(_context.Roles, "Roleid", "Name");
         return View();
     }
 
-
+    [HttpPost]
+    public async Task<IActionResult> Create(User user)
+    {
+        if(user==null){
+            return NotFound("user not found");
+        }
+        _context.Add(user);
+        await _context.SaveChangesAsync();
+        return Content("Successfully add");
+    }
 }
