@@ -1,7 +1,7 @@
 @{
     Layout = "_Layout";
 }
-@model Pizzashop_dotnet.Models.User
+@model Pizzashop_dotnet.Models.UserVModel
 <style>
     .input-holder {
         position: relative;
@@ -18,19 +18,21 @@
         right: 20px;
         top: 15px;
     }
-   
 </style>
 <!-- content header  -->
+
+
 <div class="d-flex  align-items-center justify-content-between">
-    <h3 class="text-blue">Add New User</h3>
+    <h3 class="text-blue">Edit User</h3>
     <!-- <button class="btn bg-blue text-white" type="submit">+Add User</button> -->
     <a asp-controller="User" asp-action="Index" class="btn bg-blue text-white d-flex align-items-center">Back</a>
 </div>
 
+
 <!-- box with shadow  -->
 <div class="bg-white border rounded shadow mt-3 p-3">
     <!-- form  -->
-    <form class="form p-3" asp-controller="User" asp-action="Create" method="POST">
+    <form class="form p-3" asp-controller="User" asp-action="Edit" method="POST">
         <div class="row gap-sm-0 gap-3">
             <div class=" form-floating col-sm-6 col-12">
                 <input asp-for="Firstname" class="form-control" type="text" id="fname" placeholder="First Name">
@@ -50,12 +52,11 @@
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-floating col-sm-6 col-12">
-                <select asp-for="Roleid" asp-items="@ViewBag.Role" id="RoleidDropdown"
-                    class="form-select form-control  ">
+                <select asp-for="Role" asp-items="@ViewBag.Role" id="RoleidDropdown" class="form-select form-control  ">
                     <option value="" selected>-- Select Role --</option>
                 </select>
-                <label asp-for="Roleid" for="Roleid" class="ms-3">Role</label>
-                <span asp-validation-for="Roleid" class="text-danger"></span>
+                <label asp-for="Role" for="Roleid" class="ms-3">Role</label>
+                <span asp-validation-for="Role" class="text-danger"></span>
 
             </div>
         </div>
@@ -65,16 +66,17 @@
                 <label asp-for="Email" for="email" class="ms-3">Email</label>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="Password">
+            @* <div class="form-floating col-sm-6 col-12">
+                <select  class="form-control form-control" ></select>>
+                <label  for="status" class="ms-3"></label>
+            </div> *@
+
             <div class="form-floating col-sm-6 col-12">
-                <input asp-for="Upassword" class="form-control " type="password"  id="newPassword"
-                    placeholder="Password">
-                <label asp-for="Upassword" for="newPassword" class="ms-3">Password</label>
-                <span class="eye-icon-user"><i class="bi bi-eye-slash" id="newtogglePassword"></i></span>
-                <span asp-validation-for="Upassword" class="text-danger"></span>
+                <select asp-for="Status" id="status-dropdown" class="form-select form-control" asp-items="Model.StatusList"></select>
+                <label asp-for="Status" for="status-dropdown" class="ms-3"></label>
             </div>
 
-            
-           
         </div>
         <div class="row my-4">
             <div class="">
@@ -92,21 +94,21 @@
             <div class="form-floating col-md-4 col-12">
                 <select asp-for="Country" asp-items="@ViewBag.Country" class="form-select form-control"
                     id="countryDropdown">
-                    <option value="" selected>-- Select Country --</option>
+
                 </select>
                 <label asp-for="Country" for="country" class="ms-3">Country</label>
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
             <div class="form-floating col-md-4 col-12">
-                <select asp-for="State" class="form-select form-control" id="stateDropdown">
-                    <option value="" selected>-- Select State --</option>
+                <select asp-for="State" asp-items="@ViewBag.State" class="form-select form-control" id="stateDropdown">
+
                 </select>
                 <label asp-for="State" for="state" class="ms-3">State</label>
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
             <div class="form-floating col-md-4 col-12">
-                <select asp-for="City" class="form-select form-control" id="cityDropdown">
-                    <option value="" selected>-- Select City --</option>
+                <select asp-for="City" asp-items="@ViewBag.City" class="form-select form-control" id="cityDropdown">
+
                 </select>
                 <label asp-for="City" for="city" class="ms-3">City</label>
                 <span asp-validation-for="City" class="text-danger"></span>
@@ -132,8 +134,7 @@
 
         <div class="d-flex  row gap-sm-0 gap-3">
             <div class="col-auto text-center">
-                <button type="submit" id="" class="btn bg-blue text-white d-flex align-items-center">Create
-                    User</button>
+                <button type="submit" id="" class="btn bg-blue text-white d-flex align-items-center">Save</button>
             </div>
             <div class="col-auto text-center">
                 <a asp-controller="User" asp-action="Index"

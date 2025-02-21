@@ -199,13 +199,18 @@ a {
   stroke:  rgb(0, 102, 167) !important;
 }
 
-.status {
+.Success {
     background-color: #BDE19C;
     color: white;
     padding: 5px 10px;
     border-radius: 10px;
 }
-
+.Failed {
+    background-color: #e2a2a2;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
 
 /* permission */
 .form-switch .form-check-input {

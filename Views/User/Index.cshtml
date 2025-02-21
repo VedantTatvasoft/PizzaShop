@@ -1,33 +1,47 @@
-@using X.PagedList.Mvc.Core;
-@using Azure;
-@using Microsoft.EntityFrameworkCore.Metadata.Internal;
-@* @model IEnumerable<Pizzashop_dotnet.Models.User> *@
-@model X.PagedList.IPagedList<Pizzashop_dotnet.Models.User>
+@model IEnumerable<Pizzashop_dotnet.Models.User>
 @{
     Layout = "_Layout";
 }
+<style>
+    .Success {
+    background-color: #BDE19C;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+.Failed {
+    background-color: #e2a2a2;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
 
-
+</style>
 
 <body>
     <div class="d-flex align-items-center justify-content-between">
         <h1 class="text-blue">Users</h1>
-        <form class="d-flex align-items-center" method="get">
+        <div class="d-flex align-items-center">
             <div class="search-div h-100">
-                <input class="input-search px-2 form-control d-sm-block d-none "  value="@Context.Request.Query["search"]" name="search" type="search" placeholder="Search">
-                <input class="input-search px-2 form-control d-sm-none" name="search" value="@Context.Request.Query["search"]" style="width: 100px;" type="search"
-                    placeholder="Search">
-                <span class="search-icon">
-                    <i class="bi bi-search"></i>
-                </span>
+                <input id="searchInput" class="search input-search px-2 form-control d-sm-block d-none" value="@ViewBag.SearchString" type="text" placeholder="Search">
+                @* <input class="input-search px-2 form-control d-sm-none" name="search"
+                    value="@Context.Request.Query["search"]" style="width: 100px;" type="search" placeholder="Search"> *@
+                @* <button type="submit" class="search-icon bg-white border-0"> *@
+                    @* <span > *@
+                    <li class="search-icon nav">
+                        <i class="bi bi-search"></i>
+                        </li>
+                    @* </span> *@
+                @* </button> *@
             </div>
-            <button type="submit" hidden>sub</button>
-            <a asp-controller="User" asp-action="Create" class="btn bg-blue text-white d-flex align-items-center ms-2 px-2 py-1">
+
+            <a asp-controller="User" asp-action="Create"
+                class="btn bg-blue text-white d-flex align-items-center ms-2 px-2 py-1">
                 <i class="bi bi-plus h4 p-0 m-0 mb-1 "></i>
-    
-    
+
+
                 <span class="d-none d-md-block">AddUser</span></a>
-        </form>
+        </div>
     </div>
     <div class="border rounded shadow bg-white mt-3 p-3 text-nowrap ">
         <div class="table-responsive">
@@ -38,28 +52,28 @@
                         <th scope="col"><span>Name</span><i class="bi bi-arrow-down-up ms-2"></i></th>
                         <th scope="col">Email</th>
                         <th scope="col">Phone</th>
-                        @* <th scope="col"><span>Role</span><i class="bi bi-arrow-down-up ms-2"></i></th> *@
+                        <th scope="col"><span>Role</span><i class="bi bi-arrow-down-up ms-2"></i></th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                     @foreach (var item in Model)
                     {
                         <tr>
                             <td>
-                                <img src="images/Default_pfp.svg.png" height="25px" alt="">
+                                <img src="/images/@item.Profileimageurl" height="25px" alt="">
                                 <span>@item.Firstname</span>
                             </td>
                             <td>@item.Email</td>
                             <td>@item.Phone</td>
-                            @* <td>@item.Role.Name</td> *@
-                            <td><span class="status">@item.Status</span></td>
+                            <td>@item.Role.Name</td>
+                            <td><span class="Success">@(((bool)item.Status) ? "Active" : "Inactive")</span></td>
                             <td>
-                                <a href="edit-user.html"><i class="bi bi-pen"></i></a>
-                                <a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"> <i
-                                        class="bi bi-trash ms-3"></i></a>
+                                <a asp-controller="User" asp-action="Edit"><i class="bi bi-pen"></i></a>
+                                <a data-bs-target="#model-delete" id="deleteBtn" data-bs-toggle="modal" data-email="@item.Email"> <i class="bi bi-trash ms-3"></i></a>
+                                @* <a class="dropdown-item" data-bs-target="#model-delete" data-bs-toggle="modal">Logout</a> *@
                             </td>
 
                         </tr>
@@ -72,34 +86,112 @@
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mt-2">
             <div class="d-flex align-items-center  gap-2">
                 <span>Items Per page:</span>
-                <select name="" id="role-dropdown" class="form-select" style="width: 70px;">
-                    <option value="" selected>1</option>
-                    <option value="">2</option>
-                    <option value="">5</option>
-                    <option value="">10</option>
-                    <option value="">15</option>
-                    <option value="">20</option>
-                </select>
+                <form method="get" asp-action="Index">
+                    @* <label for="pageSize" >Items Per Page:</label> *@
+                    <select name="pageSize" id="pageSize" class="form-select" style="width: 70px;">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="4">4</option>
+                    </select>
+                </form>
             </div>
             <div class="d-flex align-items-center  gap-2">
-                <span>Showing 1-5 of 13</span>
+                <span> Showing @ViewBag.StartAt-@ViewBag.EndAt of @ViewBag.TotalItems</span>
                 <div class="pagination gap-2">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
+                    @if (ViewBag.CurrentPage > 1)
+                    {
+                        <a asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)" class="btn page-link">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+                    }
+                    else
+                    {
+                        <button class="btn page-link " disabled><span aria-hidden="true">&laquo;</span></button>
+                    }
+                    @if (ViewBag.CurrentPage < ViewBag.TotalPage)
+                    {
+                        <a asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)" class="btn page-link"> <span aria-hidden="true">&raquo;</span></a>
+                    }
+                    else
+                    {
+                        <button class="btn page-link " disabled> <span aria-hidden="true">&raquo;</span></button>
+                    }
                 </div>
             </div>
         </div>
         <!-- finish pagination  -->
-        <div>
-            @Html.PagedListPager(Model , page => Url.Action("Index" , new {page, search = Context.Request.Query["search"]}))
+
+        <!-- Logout Confirmation Model-->
+    <div class="modal fade" id="model-delete" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Delete User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex flex-column justify-content-center">
+                    <img height="40px" src="/img/warning-svgrepo-com.svg" alt="">
+                    <span class="text-center mt-3">Are you sure you want to delete?</span>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <form asp-controller="User" asp-action="Delete" method="post">
+                        <input type="hidden" name="email"  id="email-input" value="">
+                        <button class="btn bg-blue text-white" type="submit">Yes</button>
+                    </form>
+                    <button type="button" class="btn blue-outline" data-bs-dismiss="modal" aria-label="Close">No</button>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- finish Logout Confirmation Model -->
+    </div>
 </body>
+
+ <script src="https://code.jquery.com/jquery3.6.0.min.js"></script> 
+<script>
+    @* document.addEventListener('DOMContentLoaded' ,function(){
+        var deleteModal = document.getElementById('model-delete');
+        deleteModal.addEventListener('show.bs.modal', function(event){
+            var button = event.relatedTarget;
+            var email = button.getAttribute('data-email');
+            var emailInput = deleteModal.querySelector('#email-input');
+            emailInput.value = email;
+        })
+    }) *@
+
+
+    $(document).ready(function() {
+        const searchInput = $('#searchInput');
+
+        @* searchInput.on('input', function() {
+            const searchString = $(this).val();   
+            console.log("scope :#BDE19C "+searchInput);
+            const url = new URL(window.location.href);
+            url.searchParams.set('page', 1);
+            url.searchParams.set('searchString', searchString);
+            console.log(url);
+            $.get(url.toString(), function(data) {
+                $('tbody').html($(data).find('tbody').html());
+            });
+        }); *@
+
+        $('#deleteBtn').on('click',function(){
+            var userEmail = $('#deleteBtn').attr('data-email');
+            console.log("Emailjs :" , userEmail);
+            ('#email-input').val(userEmail);
+        })
+    });
+
+
+        @* const status = document.querySelectorAll('.userStatus')
+         status.forEach((event) => {
+        const statusText = event.textContent.trim().toLowerCase();
+        if (statusText == 'Active') {
+            event.classList.add('Success');
+        }
+        else if (statusText == 'Inactive') {
+            event.classList.add('Failed');
+        }
+          }); *@
+</script>

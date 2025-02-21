@@ -59,6 +59,11 @@ public partial class User
     [StringLength(30)]
     public string Zipcode { get; set; } = null!;
 
+    [DataType(DataType.PhoneNumber)]
+    [Display(Name = "Phone Number")]
+    [Required(ErrorMessage = "Phone Number Required!")]
+    [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$",
+                       ErrorMessage = "Entered phone format is not valid.")]
     [Column("phone")]
     [StringLength(30)]
     public string Phone { get; set; } = null!;

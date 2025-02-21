@@ -98,7 +98,7 @@ public class AuthenticationController : Controller
 
         Console.WriteLine(user.Email);
         
-        var registeredUser = await _context.Users.Include(u=> u.Role).FirstOrDefaultAsync();
+        var registeredUser = await _context.Users.Include(u=> u.Role).Where(e=>e.Email == user.Email).FirstOrDefaultAsync();
 
         // var registeredUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
         if (registeredUser == null)

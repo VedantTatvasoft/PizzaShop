@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Project\\Pizzashop-dotnet\\Pizzashop-dotnet.csproj": {}
+    "c:\\Project\\Pizzashop-dotnet\\Pizzashop-dotnet.csproj": {}
   },
   "projects": {
-    "C:\\Project\\Pizzashop-dotnet\\Pizzashop-dotnet.csproj": {
+    "c:\\Project\\Pizzashop-dotnet\\Pizzashop-dotnet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Project\\Pizzashop-dotnet\\Pizzashop-dotnet.csproj",
+        "projectUniqueName": "c:\\Project\\Pizzashop-dotnet\\Pizzashop-dotnet.csproj",
         "projectName": "Pizzashop-dotnet",
-        "projectPath": "C:\\Project\\Pizzashop-dotnet\\Pizzashop-dotnet.csproj",
+        "projectPath": "c:\\Project\\Pizzashop-dotnet\\Pizzashop-dotnet.csproj",
         "packagesPath": "C:\\Users\\pce174\\.nuget\\packages\\",
-        "outputPath": "C:\\Project\\Pizzashop-dotnet\\obj\\",
+        "outputPath": "c:\\Project\\Pizzashop-dotnet\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pce174\\AppData\\Roaming\\NuGet\\NuGet.Config"

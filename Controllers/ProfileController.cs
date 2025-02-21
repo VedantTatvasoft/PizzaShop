@@ -23,7 +23,7 @@ public class ProfileController : Controller
 
         var userEmail = User.FindFirstValue(ClaimTypes.Email);
         // var user = _context.Users.FirstOrDefault(u=>u.Email == userEmail);
-        var user = await _context.Users.Include(c => c.CountryNavigation).Include(s => s.StateNavigation).Include(ci => ci.CityNavigation).Include(r => r.Role).FirstOrDefaultAsync();
+        var user = await _context.Users.Include(c => c.CountryNavigation).Include(s => s.StateNavigation).Include(ci => ci.CityNavigation).Include(r => r.Role).Where(e=>e.Email == userEmail).FirstOrDefaultAsync();
         if (user == null)
         {
             return NotFound("User not found");

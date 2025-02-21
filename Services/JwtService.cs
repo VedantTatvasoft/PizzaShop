@@ -31,9 +31,9 @@ namespace Pizzashop_dotnet.Services
         };
 
             var token = new JwtSecurityToken(
-                _config["Jwt:Issuer"],
-                _config["Jwt:Audience"],
-                claims,
+                issuer : _config["Jwt:Issuer"],
+                audience : _config["Jwt:Audience"],
+                claims : claims,
                 expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(_config["Jwt:ExpiryInMinutes"])),
                 signingCredentials: credentials);
 
